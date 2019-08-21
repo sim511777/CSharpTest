@@ -399,6 +399,18 @@ namespace CSharpTest {
             new FormAsyncAwaitMs().ShowDialog();
         }
 
+        public static async void AsyncAwaitTest2(int seconds = 5) {
+            var task = Task.Run(() => {
+                    for (int i=0; i<seconds; i++) {
+                        Thread.Sleep(1000);
+                    }
+                    return seconds;
+                }
+            );
+            int ret = await task;
+            MessageBox.Show($"{ret} seconds passed");
+        }
+
         public static void ExePath() {
             Console.WriteLine("Application.StartupPath : {0}", Application.StartupPath);
             Console.WriteLine("Application.ExecutablePath : {0}", Application.ExecutablePath);
