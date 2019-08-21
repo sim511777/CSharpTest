@@ -68,6 +68,12 @@
     <Compile Include="FormAsyncAwait.Designer.cs">
       <DependentUpon>FormAsyncAwait.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormAsyncAwait3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAsyncAwait3.Designer.cs">
+      <DependentUpon>FormAsyncAwait3.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormAsyncAwaitMs.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -89,6 +95,9 @@
     <Compile Include="TestSub.cs" />
     <EmbeddedResource Include="FormAsyncAwait.resx">
       <DependentUpon>FormAsyncAwait.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAsyncAwait3.resx">
+      <DependentUpon>FormAsyncAwait3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormAsyncAwaitMs.resx">
       <DependentUpon>FormAsyncAwaitMs.cs</DependentUpon>

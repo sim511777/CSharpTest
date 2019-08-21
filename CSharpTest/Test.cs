@@ -411,6 +411,10 @@ namespace CSharpTest {
             MessageBox.Show($"{ret} seconds passed");
         }
 
+        public static void AsyncAwaitTest3(int seconds = 5) {
+            new FormAsyncAwait3().ShowDialog();
+        }
+
         public static void ExePath() {
             Console.WriteLine("Application.StartupPath : {0}", Application.StartupPath);
             Console.WriteLine("Application.ExecutablePath : {0}", Application.ExecutablePath);
