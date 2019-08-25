@@ -99,6 +99,11 @@ namespace CSharpTest {
         private void btnClear_Click(object sender, EventArgs e) {
             this.tbxConsole.Clear();
         }
+
+        private void btnRunTest_Click(object sender, EventArgs e)
+        {
+            this.RunMethod();
+        }
     }
 
     class MethodInfoItem {

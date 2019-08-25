@@ -608,18 +608,14 @@ $@"    </table>
             Console.WriteLine(responseText);
         }
 
-        public static void ByteArrayToHexString()
+        public static void ByteArrayToHexString(List<byte> bytes)
         {
-            try
-            {
-                var arr = Enumerable.Range(0, 64).Select(val => (byte)val).ToArray();
-                string hex = BitConverter.ToString(arr);
-                Console.WriteLine(hex);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
+            byte[] arr = bytes.ToArray();
+            Console.Write("arr : ");
+            Console.WriteLine(string.Join(",", arr));
+            string hex = BitConverter.ToString(arr);
+            Console.Write("hex : ");
+            Console.WriteLine(hex);
         }
     }
 }
