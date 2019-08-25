@@ -607,5 +607,19 @@ $@"    </table>
 
             Console.WriteLine(responseText);
         }
+
+        public static void ByteArrayToHexString()
+        {
+            try
+            {
+                var arr = Enumerable.Range(0, 64).Select(val => (byte)val).ToArray();
+                string hex = BitConverter.ToString(arr);
+                Console.WriteLine(hex);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
     }
 }
