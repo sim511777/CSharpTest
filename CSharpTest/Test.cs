@@ -617,5 +617,45 @@ $@"    </table>
             Console.Write("hex : ");
             Console.WriteLine(hex);
         }
+
+        public static IntPtr buffer = IntPtr.Zero;
+        public static long cb = 10 * 1024L * 1024L * 1024L;
+        public static void Alloc() {
+            if (buffer != IntPtr.Zero) {
+                Console.WriteLine("Error : buffer not freed");
+                return;
+            }
+
+            buffer = Marshal.AllocHGlobal((IntPtr)cb);
+        }
+
+        public static void Memset() {
+            if (buffer == IntPtr.Zero) {
+                Console.WriteLine("Error : buffer not allocated");
+                return;
+            }
+
+            Msvcrt.memset(buffer, 0, (IntPtr)cb);
+        }
+
+        public static void AllocAndMemset() {
+            if (buffer != IntPtr.Zero) {
+                Console.WriteLine("Error : buffer not freed");
+                return;
+            }
+
+            buffer = Marshal.AllocHGlobal((IntPtr)cb);
+            Msvcrt.memset(buffer, 0, (IntPtr)cb);
+        }
+
+        public static void Free() {
+            if (buffer == IntPtr.Zero) {
+                Console.WriteLine("Error : buffer not allocated");
+                return;
+            }
+            
+            Marshal.FreeHGlobal(buffer);
+            buffer = IntPtr.Zero;
+        }
     }
 }
