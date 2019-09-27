@@ -22,6 +22,11 @@ namespace CSharpTest {
         public static void Nothging() {
         }
 
+        public static void BitCheck() {
+            Console.WriteLine("IntPtr.Size: {0}", IntPtr.Size);
+            Console.WriteLine("this process is {0}bit", IntPtr.Size * 8);
+        }
+
         public static void MultiplyTable() {
             for (int i = 1; i <= 9; i++) {
                 for (int j = 2; j <= 9; j++) {
@@ -621,6 +626,10 @@ $@"    </table>
             Console.WriteLine(hex);
         }
 
+        public static void NativeAddTest(int a = 2, int b = 3) {
+            Console.WriteLine("Native.Add({0}, {1}): {2}", a, b, Native.Add(a, b));
+        }
+
         public static IntPtr buffer = IntPtr.Zero;
         public static long cb = 10 * 1024L * 1024L * 1024L;
         public static void Alloc() {
@@ -638,16 +647,6 @@ $@"    </table>
                 return;
             }
 
-            Msvcrt.memset(buffer, 0, (IntPtr)cb);
-        }
-
-        public static void AllocAndMemset() {
-            if (buffer != IntPtr.Zero) {
-                Console.WriteLine("Error : buffer not freed");
-                return;
-            }
-
-            buffer = Marshal.AllocHGlobal((IntPtr)cb);
             Msvcrt.memset(buffer, 0, (IntPtr)cb);
         }
 
