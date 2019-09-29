@@ -630,34 +630,93 @@ $@"    </table>
             Console.WriteLine("Native.Add({0}, {1}): {2}", a, b, Native.Add(a, b));
         }
 
-        public static IntPtr buffer = IntPtr.Zero;
+        public static IntPtr bufHGlobal = IntPtr.Zero;
+        public static IntPtr bufNewBuffer = IntPtr.Zero;
+        public static IntPtr bufMallocBuffer = IntPtr.Zero;
         public static long cb = 10 * 1024L * 1024L * 1024L;
-        public static void Alloc() {
-            if (buffer != IntPtr.Zero) {
+        
+        public static void AllocHGlobalTest() {
+            if (bufHGlobal != IntPtr.Zero || bufNewBuffer != IntPtr.Zero || bufMallocBuffer != IntPtr.Zero) {
                 Console.WriteLine("Error : buffer not freed");
                 return;
             }
 
-            buffer = Marshal.AllocHGlobal((IntPtr)cb);
+            bufHGlobal = Marshal.AllocHGlobal((IntPtr)cb);
         }
 
-        public static void Memset() {
-            if (buffer == IntPtr.Zero) {
-                Console.WriteLine("Error : buffer not allocated");
-                return;
-            }
-
-            Msvcrt.memset(buffer, 0, (IntPtr)cb);
-        }
-
-        public static void Free() {
-            if (buffer == IntPtr.Zero) {
+        public static void FreeHGlobalTest() {
+            if (bufHGlobal == IntPtr.Zero) {
                 Console.WriteLine("Error : buffer not allocated");
                 return;
             }
             
-            Marshal.FreeHGlobal(buffer);
-            buffer = IntPtr.Zero;
+            Marshal.FreeHGlobal(bufHGlobal);
+            bufHGlobal = IntPtr.Zero;
+        }
+
+        public static void MemsetHGlobalTest(int val = 0) {
+            if (bufHGlobal == IntPtr.Zero) {
+                Console.WriteLine("Error : buffer not allocated");
+                return;
+            }
+
+            Msvcrt.memset(bufHGlobal, val, (IntPtr)cb);
+        }
+
+        public static void NewBufferTest() {
+            if (bufHGlobal != IntPtr.Zero || bufNewBuffer != IntPtr.Zero || bufMallocBuffer != IntPtr.Zero) {
+                Console.WriteLine("Error : buffer not freed");
+                return;
+            }
+
+            bufNewBuffer = Native.NewBuffer(cb);
+        }
+
+        public static void DeleteBufferTest() {
+            if (bufNewBuffer == IntPtr.Zero) {
+                Console.WriteLine("Error : buffer not allocated");
+                return;
+            }
+
+            Native.DeleteBuffer(bufNewBuffer);
+            bufNewBuffer = IntPtr.Zero;
+        }
+
+        public static void MemsetNewBufferTest(int val = 0) {
+            if (bufNewBuffer == IntPtr.Zero) {
+                Console.WriteLine("Error : buffer not allocated");
+                return;
+            }
+
+            Msvcrt.memset(bufNewBuffer, val, (IntPtr)cb);
+        }
+
+        public static void MallocBufferTest() {
+            if (bufHGlobal != IntPtr.Zero || bufNewBuffer != IntPtr.Zero || bufMallocBuffer != IntPtr.Zero) {
+                Console.WriteLine("Error : buffer not freed");
+                return;
+            }
+
+            bufMallocBuffer = Native.MallocBuffer(cb);
+        }
+
+        public static void FreeBufferTest() {
+            if (bufMallocBuffer == IntPtr.Zero) {
+                Console.WriteLine("Error : buffer not allocated");
+                return;
+            }
+
+            Native.FreeBuffer(bufMallocBuffer);
+            bufMallocBuffer = IntPtr.Zero;
+        }
+
+        public static void MemsetMallocBufferTest(int val = 0) {
+            if (bufMallocBuffer == IntPtr.Zero) {
+                Console.WriteLine("Error : buffer not allocated");
+                return;
+            }
+
+            Msvcrt.memset(bufMallocBuffer, val, (IntPtr)cb);
         }
     }
 }

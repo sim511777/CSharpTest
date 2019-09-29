@@ -9,3 +9,19 @@ NATIVE_API int Add(int a, int b)
 {
     return a + b;
 }
+
+NATIVE_API BYTE* NewBuffer(__int64 cb) {
+    return new BYTE[cb];
+}
+
+NATIVE_API void DeleteBuffer(BYTE* buffer) {
+    delete [] buffer;
+}
+
+NATIVE_API BYTE* MallocBuffer(__int64 cb) {
+    return (BYTE*)malloc(cb);
+}
+
+NATIVE_API void FreeBuffer(BYTE* buffer) {
+    free(buffer);
+}
