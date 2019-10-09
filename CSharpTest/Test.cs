@@ -718,5 +718,17 @@ $@"    </table>
 
             Msvcrt.memset(bufMallocBuffer, val, (IntPtr)cb);
         }
+
+        public static void CurryTest() {
+            Func<int, Func<int,int>> delegateVar = p1 => (p2 => p1 - p2);
+            // delegateVar은 int를 받아서 int(int)함수를 리턴하는 딜리게이트변수인데
+            // 그 함수는 p2를 받아서 p1에 더한 값을 리턴해주는함수 
+            Console.WriteLine(delegateVar(3)(2));
+
+            Func<int, int> localFunction(int p1) => (p2 => p1 - p2);
+            // localFunction은 int p1을 인자로 받고 int(int)함수를 리턴하는 함수인데
+            // 그 함수는 p2를 받아서 p1에 더한 값을 리턴해주는 함수
+            Console.WriteLine(localFunction(3)(2));
+        }
     }
 }
