@@ -15,9 +15,9 @@ namespace CSharpTest {
     public class Native {
         const string dll = "Native.dll";
         [DllImport(dll)] public static extern int Add(int a, int b);
-        [DllImport(dll)] public static extern IntPtr NewBuffer(long cb);
+        [DllImport(dll)] public static extern IntPtr NewBuffer(IntPtr cb);
         [DllImport(dll)] public static extern void DeleteBuffer(IntPtr buffer);
-        [DllImport(dll)] public static extern IntPtr MallocBuffer(long cb);
+        [DllImport(dll)] public static extern IntPtr MallocBuffer(IntPtr cb);
         [DllImport(dll)] public static extern void FreeBuffer(IntPtr buffer);
     }
 }

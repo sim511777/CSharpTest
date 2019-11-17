@@ -669,7 +669,7 @@ $@"    </table>
                 return;
             }
 
-            bufNewBuffer = Native.NewBuffer(cb);
+            bufNewBuffer = Native.NewBuffer((IntPtr)cb);
         }
 
         public static void DeleteBufferTest() {
@@ -697,7 +697,7 @@ $@"    </table>
                 return;
             }
 
-            bufMallocBuffer = Native.MallocBuffer(cb);
+            bufMallocBuffer = Native.MallocBuffer((IntPtr)cb);
         }
 
         public static void FreeBufferTest() {
