@@ -760,8 +760,23 @@ $@"    </table>
             
             int b = intList[4];             // get (List indexer)
             Console.WriteLine(b);
-            
+
             intList[3] = 8; // set (List indexer)
+            Console.WriteLine(string.Join(" ", intList.ToArray()));
+        }
+
+        public static void LinkedListElementAccessTest() {
+            LinkedList<int> intList = new LinkedList<int>(Enumerable.Range(0,10));
+
+            Console.WriteLine(string.Join(" ", intList.ToArray()));
+            
+            int a = intList.ElementAt(3);   // get (LINQ)
+            Console.WriteLine(a);
+            
+            //int b = intList[4]; // error (indexer not supported)
+            //intList[3] = 8; // error (indexer not supported)
+            // no replace or remove or add by index
+
             Console.WriteLine(string.Join(" ", intList.ToArray()));
         }
     }
