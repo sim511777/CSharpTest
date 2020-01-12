@@ -750,5 +750,19 @@ $@"    </table>
             Console.WriteLine(localFunction1(1, 2));
             Console.WriteLine(localFunction2(1, 2));
         }
+
+        public static void ListElementAccessTest() {
+            List<int> intList = Enumerable.Range(0, 10).ToList();
+            Console.WriteLine(string.Join(" ", intList.ToArray()));
+
+            int a = intList.ElementAt(3);   // get (LINQ)
+            Console.WriteLine(a);
+            
+            int b = intList[4];             // get (List indexer)
+            Console.WriteLine(b);
+            
+            intList[3] = 8; // set (List indexer)
+            Console.WriteLine(string.Join(" ", intList.ToArray()));
+        }
     }
 }
