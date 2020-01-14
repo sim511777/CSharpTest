@@ -779,5 +779,21 @@ $@"    </table>
 
             Console.WriteLine(string.Join(" ", intList.ToArray()));
         }
+
+        public static void RandomShuffleTest() {
+            var intList = Enumerable.Range(0, 10);
+            var rndList = intList.RandomShuffle();
+            foreach (var rnd in rndList) {
+                Console.WriteLine(rnd);
+            }
+        }
+
+        public static void RandomShuffleCountTest(int count = 5) {
+            var intList = Enumerable.Range(0, 10);
+            var rndList = intList.RandomShuffle(count);
+            foreach (var rnd in rndList) {
+                Console.WriteLine(rnd);
+            }
+        }
     }
 }

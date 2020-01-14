@@ -251,4 +251,20 @@ namespace CSharpTest {
             return GetCRCT(pData, 0, pData.Length);
         }
     }
+
+    public static class EnumerableShim {
+        public static IEnumerable<TSource> RandomShuffle<TSource>(this IEnumerable<TSource> source) {
+            return RandomShuffle(source, source.Count());
+        }
+        
+        public static IEnumerable<TSource> RandomShuffle<TSource>(this IEnumerable<TSource> source, int count) {
+            var array = source.ToArray();
+            var rnd = new Random();
+            for (int i = 0; i < count; i++) {
+                int j = rnd.Next(i, array.Length);
+                yield return array[j];
+                array[j] = array[i];
+            }
+        }
+    }
 }
