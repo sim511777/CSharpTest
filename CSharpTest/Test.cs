@@ -795,5 +795,29 @@ $@"    </table>
                 Console.WriteLine(rnd);
             }
         }
+
+        public static void DateTimeResolutionTest() {
+            var time1 = DateTime.Now;
+            while (true) {
+                var time2 = DateTime.Now;
+                if (time2 != time1) {
+                    double ms = (time2 - time1).TotalMilliseconds;
+                    Console.WriteLine($"{ms}ms");
+                    break;
+                }
+            }
+        }
+
+        public static void StopwatchResolutionTest() {
+            var time1 = Stopwatch.GetTimestamp();
+            while (true) {
+                var time2 = Stopwatch.GetTimestamp();
+                if (time2 != time1) {
+                    double ms = (time2 - time1) * 1000.0 / Stopwatch.Frequency;
+                    Console.WriteLine($"{ms}ms");
+                    break;
+                }
+            }
+        }
     }
 }
