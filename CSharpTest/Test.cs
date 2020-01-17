@@ -819,5 +819,30 @@ $@"    </table>
                 }
             }
         }
+
+        public static void MathRoundTest(double start = -10.0, double end = 10.0, double step = 0.5) {
+            // 반올림시 0.5에 대한 처리 방법
+            // MidpointRounding.AwayFromZero : 0.5는 위로 올린다
+            // MidpointRounding.ToEven : 번갈아 가면서 올리고 내리고 한다
+            // 0.5->0, 1.5->2, 2.5->2, 3.5->4
+            // 결국 짝수(0,2,4,...)로 되버림
+            Console.WriteLine(
+@"input
+      : Round(ToEven)
+      :     : Round(AwayFromZero)
+      :     :     : Floor
+      :     :     :     : (int)
+      :     :     :     :     : Floor(+0.5)
+      :     :     :     :     :     : (int)(+0.5)");
+            for (double item = start; item < end; item += 0.5) {
+                var roundToEven = Math.Round(item, MidpointRounding.ToEven);
+                var roundToAwayFromZero = Math.Round(item, MidpointRounding.AwayFromZero);
+                var floor = Math.Floor(item);
+                var castInt = (int)item;
+                var addHalffloor = Math.Floor(item + 0.5);
+                var addHalfIntCast = (int)(item + 0.5);
+                Console.WriteLine($"{item,5} : {roundToEven,3} : {roundToAwayFromZero,3} : {floor,3} : {castInt,3} : {addHalffloor,3} : {addHalfIntCast,3}");
+            }
+        }
     }
 }
