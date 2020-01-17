@@ -844,5 +844,52 @@ $@"    </table>
                 Console.WriteLine($"{item,5} : {roundToEven,3} : {roundToAwayFromZero,3} : {floor,3} : {castInt,3} : {addHalffloor,3} : {addHalfIntCast,3}");
             }
         }
+
+        public static void LiteralTest() {
+            Console.WriteLine("리터럴은 값의 소스 코드 표현입니다.");
+            Console.WriteLine();
+            Console.WriteLine("== type");
+            Console.WriteLine("true  : " + $"{(true).GetType()}");
+            Console.WriteLine("123   : " + $"{(123).GetType()}");
+            Console.WriteLine("123U  : " + $"{(123U).GetType()}");
+            Console.WriteLine("123L  : " + $"{(123L).GetType()}");
+            Console.WriteLine("123UL : " + $"{(123UL).GetType()}");
+            Console.WriteLine("1.23  : " + $"{(1.23).GetType()}");
+            Console.WriteLine("1.23f : " + $"{(1.23f).GetType()}");
+            Console.WriteLine("1.23d : " + $"{(1.23d).GetType()}");
+            Console.WriteLine("1.23m : " + $"{(1.23m).GetType()}");
+            Console.WriteLine();
+            Console.WriteLine("== small integer");
+            Console.WriteLine("(sbyte)123   : " + $"{((sbyte)123).GetType()}");
+            Console.WriteLine("(byte)123    : " + $"{((byte)123).GetType()}");
+            Console.WriteLine("(short)123   : " + $"{((short)123).GetType()}");
+            Console.WriteLine("(ushort)123  : " + $"{((ushort)123).GetType()}");
+            Console.WriteLine();
+            Console.WriteLine("== hex integer");
+            Console.WriteLine("0xff               : " + $"{(0xff).GetType()} {0xff}");
+            Console.WriteLine("0x00ffffff         : " + $"{(0x00ffffff).GetType()} {0x00ffffff}");
+            Console.WriteLine("0xffffffff         : " + $"{(0xffffffff).GetType()} {0xffffffff}");
+            Console.WriteLine("0xffffffffff       : " + $"{(0xffffffffff).GetType()} {0xffffffffff}");
+            Console.WriteLine("0xffffffffffffffff : " + $"{(0xffffffffffffffff).GetType()} {0xffffffffffffffff}");
+            Console.WriteLine("0b01010101010101010101010101010101 : " + $"{(0b01010101010101010101010101010101).GetType()} {0b01010101010101010101010101010101}");
+            Console.WriteLine("0b0101010101010101010101010101010101010101010101010101010101010101 : " + $"{(0b0101010101010101010101010101010101010101010101010101010101010101).GetType()} {0b0101010101010101010101010101010101010101010101010101010101010101}");
+            Console.WriteLine();
+            Console.WriteLine("== floating point");
+            Console.WriteLine("1.23e+2  : " + $"{(1.23e+2).GetType()} {1.23e+2}");
+            Console.WriteLine("1.23e-2  : " + $"{(1.23e-2).GetType()} {1.23e-2}");
+            Console.WriteLine("1.23e+2f : " + $"{(1.23e+2f).GetType()} {1.23e+2f}");
+            Console.WriteLine("1.23e-2f : " + $"{(1.23e-2f).GetType()} {1.23e-2f}");
+            Console.WriteLine("1.23e+2d : " + $"{(1.23e+2d).GetType()} {1.23e+2d}");
+            Console.WriteLine("1.23e-2d : " + $"{(1.23e-2d).GetType()} {1.23e-2d}");
+            Console.WriteLine("1.23e+2m : " + $"{(1.23e+2m).GetType()} {1.23e+2m}");
+            Console.WriteLine("1.23e-2m : " + $"{(1.23e-2m).GetType()} {1.23e-2m}");
+            Console.WriteLine();
+            Console.WriteLine("== string");
+            Console.WriteLine("\'a\'      : " + $"{('a').GetType()}");
+            Console.WriteLine("\"abc\"    : " + $"{("abc").GetType()}");
+            Console.WriteLine("@\"abc\"   : " + $"{(@"abc").GetType()}");
+            Console.WriteLine("$\"abc\"   : " + $"{($"abc").GetType()}");
+            Console.WriteLine("$@\"abc\"  : " + $"{($@"abc").GetType()}");
+        }
     }
 }
