@@ -891,5 +891,10 @@ $@"    </table>
             Console.WriteLine("$\"abc\"   : " + $"{($"abc").GetType()}");
             Console.WriteLine("$@\"abc\"  : " + $"{($@"abc").GetType()}");
         }
+
+        public static void SizeOfPrimitiveTest() {
+            Console.WriteLine($"sizeof(bool) = {sizeof(bool)}");
+            Console.WriteLine($"Marshal.SizeOf(typeof(bool)) = {Marshal.SizeOf(typeof(bool))}");
+        }
     }
 }
