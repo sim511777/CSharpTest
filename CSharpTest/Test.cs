@@ -896,5 +896,34 @@ $@"    </table>
             Console.WriteLine($"sizeof(bool) = {sizeof(bool)}");
             Console.WriteLine($"Marshal.SizeOf(typeof(bool)) = {Marshal.SizeOf(typeof(bool))}");
         }
+
+        public static void ValutTupleTest() {
+            Tuple<string, int> GiveMe7() {
+                return Tuple.Create("Seven", 7);
+            }
+
+            (string, int) GiveMe8() {
+                return ("Eight", 8);
+            }
+
+            (string name, int num) GiveMe9() {
+                return ("Nine", 9);
+            }
+
+            var tuple7 = GiveMe7();
+            var tuple8 = GiveMe8();
+            var tuple9 = GiveMe9();
+            Console.WriteLine($"tuple7.Item1={tuple7.Item1}, tuple7.Item2={tuple7.Item2}");
+            Console.WriteLine($"tuple8.Item1={tuple8.Item1}, tuple8.Item2={tuple8.Item2}");
+            Console.WriteLine($"tuple9.name={tuple9.name}, tuple9.num={tuple9.num}");
+            Console.WriteLine();
+
+            var (name7, num7) = GiveMe7();
+            var (name8, num8) = GiveMe8();
+            var (name9, num9) = GiveMe9();
+            Console.WriteLine($"name7={name7}, num7={num7}");
+            Console.WriteLine($"name8={name8}, num8={num8}");
+            Console.WriteLine($"name9={name9}, num9={num9}");
+        }
     }
 }
