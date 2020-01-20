@@ -925,5 +925,14 @@ $@"    </table>
             Console.WriteLine($"name8={name8}, num8={num8}");
             Console.WriteLine($"name9={name9}, num9={num9}");
         }
+
+        public static void FuncCombinationTest() {
+            Func<int, int, int> sub = (a, b) => a - b;
+            Func<int, int> sub3 = (a) => sub(a, 3);
+            Func<int, Func<int,int>> subCurry = (b) => (a) => sub(a, b);
+            Console.WriteLine($"sub(5, 3) = {sub(5, 3)}");
+            Console.WriteLine($"sub3(5) = {sub3(5)}");
+            Console.WriteLine($"subCurry(3)(5) = {subCurry(3)(5)}");
+        }
     }
 }
