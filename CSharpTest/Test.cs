@@ -949,5 +949,11 @@ $@"    </table>
                 }
             }
         }
+
+        public static void WebGrabVocaPrnoun() {
+            var words = Voca.words.Split(new char[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries);
+            var lines = words.Select(word => word + " : " + Voca.GetPronoun(word));
+            File.WriteAllLines("c:\\test\\out.txt", lines);
+        }
     }
 }
