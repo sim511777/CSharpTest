@@ -81,6 +81,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HtmlAgilityPack, Version=1.11.17.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.17\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.TextEditor, Version=3.2.1.6466, Culture=neutral, PublicKeyToken=4d61825e8dd49f1a, processorArchitecture=MSIL">
       <HintPath>..\packages\ICSharpCode.TextEditor.3.2.1.6466\lib\Net20\ICSharpCode.TextEditor.dll</HintPath>
     </Reference>

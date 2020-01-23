@@ -12,6 +12,7 @@ using System.IO;
 using System.ComponentModel;
 using System.Threading;
 using System.Net;
+using HtmlAgilityPack;
 
 namespace CSharpTest {
     class Test {
@@ -933,6 +934,20 @@ $@"    </table>
             Console.WriteLine($"sub(5, 3) = {sub(5, 3)}");
             Console.WriteLine($"sub3(5) = {sub3(5)}");
             Console.WriteLine($"subCurry(3)(5) = {subCurry(3)(5)}");
+        }
+
+        public static void HtmlAgilityPackTest(string url = "http://aha-dic.com/View.asp?word=pitcher") {
+            using (var client = new WebClient()) {
+                client.Encoding = Encoding.UTF8;
+                var html = client.DownloadString(url);
+                var doc = new HtmlAgilityPack.HtmlDocument();
+                doc.LoadHtml(html);
+                var nodes = doc.DocumentNode.SelectNodes("//div[@class='phonetic']");
+                var texts = nodes.ElementAt(0).ChildNodes.Where(cn => cn.NodeType == HtmlNodeType.Text);
+                foreach (var text in texts) {
+                    Console.WriteLine("r = " + text.OuterHtml.Trim());
+                }
+            }
         }
     }
 }
