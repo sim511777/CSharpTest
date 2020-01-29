@@ -149,21 +149,15 @@ namespace CSharpTest {
     enum ArrayStyle { Random, AscSorted, DescSorted }
 
     public class Super {
-        public void NormalPrint() {
-            Console.WriteLine("Super.NormalPrint()");
-        }
-        public virtual void OverridePrint() {
-            Console.WriteLine("Super.OverridePrint()");
-        }
+        public virtual void Virtual_Normal_Print() => Console.WriteLine("Super.Virtual_Normal_Print()");
+        public virtual void Virtual_New_Print() => Console.WriteLine("Super.Virtual_New_Print()");
+        public virtual void Virtual_Override_Print() => Console.WriteLine("Super.Virtual_Override_Print()");
     }
 
     public class Sub : Super {
-        new private void NormalPrint() {
-            Console.WriteLine("Sub.NormalPrint()");
-        }
-        public override void OverridePrint() {
-            Console.WriteLine("Sub.OverridePrint()");
-        }
+        public void Virtual_Normal_Print() => Console.WriteLine("Sub.Virtual_Normal_Print()");
+        public new void Virtual_New_Print() => Console.WriteLine("Sub.Virtual_New_Print()");
+        public override void Virtual_Override_Print() => Console.WriteLine("Sub.Virtual_Override_Print()");
     }
 
     public class FobonacciClass {

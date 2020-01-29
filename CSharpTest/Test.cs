@@ -232,12 +232,17 @@ namespace CSharpTest {
         }
 
         public static void InheritanceTest() {
-            Sub sub = new Sub();
-            sub.NormalPrint();
-            sub.OverridePrint();
-            Super sub2 = new Sub();
-            sub2.NormalPrint();
-            sub2.OverridePrint();
+            Sub obj1 = new Sub();
+            Console.WriteLine("Sub obj1 = new Sub();");
+            obj1.Virtual_Normal_Print();
+            obj1.Virtual_New_Print();
+            obj1.Virtual_Override_Print();
+            Console.WriteLine();
+            Super obj2 = new Sub();
+            Console.WriteLine("Super obj2 = new Sub();");
+            obj2.Virtual_Normal_Print();
+            obj2.Virtual_New_Print();
+            obj2.Virtual_Override_Print();
         }
 
 
