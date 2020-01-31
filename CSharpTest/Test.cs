@@ -942,12 +942,6 @@ $@"    </table>
             }
         }
 
-        public static void WebGrabVocaPrnoun() {
-            var words = Voca.words.Split(new char[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries);
-            var lines = words.Select(word => word + " : " + Voca.GetPronoun(word));
-            File.WriteAllLines("c:\\test\\out.txt", lines);
-        }
-
         public static void CurryTest() {
             Func<int, Func<int, int>> delegateVar = p1 => (p2 => p1 - p2);
             // delegateVar은 int를 받아서 int(int)함수를 리턴하는 딜리게이트변수인데
@@ -967,6 +961,13 @@ $@"    </table>
             Func<int, int> Add5 = Curry(Add, 5);
         
             Console.WriteLine(Add5(3));
+        }
+
+        public static void CurryTest3() {
+            Func<B, R> Curry<A, B, R>(Func<A, B, R> f, A a) => b => f(a, b);
+            Func<int, int, int> Add = (a, b) => a + b;
+            var Add3 = Curry(Add, 3);
+            Console.WriteLine(Add3(2));
         }
     }
 }
