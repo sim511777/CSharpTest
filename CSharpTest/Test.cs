@@ -13,6 +13,8 @@ using System.ComponentModel;
 using System.Threading;
 using System.Net;
 using HtmlAgilityPack;
+using System.Linq.Expressions;
+using System.Runtime.Serialization.Json;
 
 namespace CSharpTest {
     class Test {
@@ -968,6 +970,27 @@ $@"    </table>
             Func<int, int, int> Add = (a, b) => a + b;
             var Add3 = Curry(Add, 3);
             Console.WriteLine(Add3(2));
+        }
+
+        public static void ExpressionTreeTest() {
+            Func<int, int, int> func = (a, b) => a + b;
+            Expression<Func<int, int, int>> exp = (a, b) => a + b;
+            var compiled = exp.Compile();
+            Console.WriteLine($"{func(3, 4)}");
+            Console.WriteLine($"{compiled(3, 4)}");
+
+            try {
+                string funcJson = JsonSerilizer.ObjectToJson(func, false);
+                Console.WriteLine(funcJson);
+            } catch (Exception ex) {
+                Console.WriteLine(ex.ToString());
+            }
+            try {
+                string expJson = JsonSerilizer.ObjectToJson(exp, false);
+                Console.WriteLine(expJson);
+            } catch (Exception ex) {
+                Console.WriteLine(ex.ToString());
+            }
         }
     }
 }

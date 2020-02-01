@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -262,6 +264,27 @@ namespace CSharpTest {
                 int j = rnd.Next(i, array.Length);
                 yield return array[j];
                 array[j] = array[i];
+            }
+        }
+    }
+
+    public class JsonSerilizer {
+        public static string ObjectToJson(object obj, bool indent) {
+            var ser = new DataContractJsonSerializer(obj.GetType());
+            using (var ms = new MemoryStream())
+            using (var writer = JsonReaderWriterFactory.CreateJsonWriter(ms, Encoding.UTF8, true, indent)) {
+                ser.WriteObject(writer, obj);
+                writer.Flush();
+                var json = Encoding.UTF8.GetString(ms.ToArray());
+                return json;
+            }
+        }
+
+        public static T JsonToObject<T>(string json) {
+            var ser = new DataContractJsonSerializer(typeof(T));
+            using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(json))) {
+                var obj = (T)ser.ReadObject(ms);
+                return obj;
             }
         }
     }
