@@ -25,9 +25,9 @@ namespace CSharpTest {
         public static void Nothging() {
         }
 
-        public static void BitCheck() {
-            Console.WriteLine("IntPtr.Size: {0}", IntPtr.Size);
-            Console.WriteLine("this process is {0}bit", IntPtr.Size * 8);
+        public unsafe static void BitCheck() {
+            Console.WriteLine($"IntPtr.Size: {IntPtr.Size}");
+            Console.WriteLine($"sizeof(IntPtr): {sizeof(IntPtr)}");
         }
 
         public static void MultiplyTable() {
