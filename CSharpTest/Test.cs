@@ -502,19 +502,18 @@ $@"    </table>
             }
         }
 
-        public static void ThreadLockTest() {
+        public static void ThreadLockTest(int incCount = 100000, bool useLock = false) {
             int count = 0;
             object locker = new object();
 
-            void ts()
-            {
-                for (int i = 0; i < 100; i++) {
-                    //lock (locker)
-                    {
-                        int n = count;
-                        Thread.Sleep(10);
-                        n += 1;
-                        count = n; 
+            void ts() {
+                for (int i = 0; i < incCount; i++) {
+                    if (useLock) {
+                        lock (locker) {
+                            ++count; 
+                        }
+                    } else {
+                        ++count;
                     }
                 }
             }
