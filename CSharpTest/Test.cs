@@ -504,26 +504,23 @@ $@"    </table>
 
         public static void ThreadLockTest() {
             int count = 0;
-
             object locker = new object();
 
-            Thread t1 = new Thread(() => {
+            void ts()
+            {
                 for (int i = 0; i < 100; i++) {
-                    lock (locker) {
-                        count++;
+                    //lock (locker)
+                    {
+                        int n = count;
+                        Thread.Sleep(10);
+                        n += 1;
+                        count = n; 
                     }
-                    Thread.Sleep(10);
                 }
-            });
+            }
 
-            Thread t2 = new Thread(() => {
-                for (int i = 0; i < 100; i++) {
-                    lock (locker) {
-                        count--;
-                    }
-                    Thread.Sleep(10);
-                }
-            });
+            var t1 = new Thread(ts);
+            var t2 = new Thread(ts);
 
             t1.Start();
             t2.Start();
