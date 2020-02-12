@@ -28,6 +28,7 @@
             this.lbxFunc = new System.Windows.Forms.ListBox();
             this.splitter4 = new System.Windows.Forms.Splitter();
             this.grdParameter = new System.Windows.Forms.PropertyGrid();
+            this.btnRunTest = new System.Windows.Forms.Button();
             this.tbxConsole = new System.Windows.Forms.TextBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.splitter1 = new System.Windows.Forms.Splitter();
@@ -36,7 +37,6 @@
             this.tbxCode = new ICSharpCode.TextEditor.TextEditorControl();
             this.panel3 = new System.Windows.Forms.Panel();
             this.splitter2 = new System.Windows.Forms.Splitter();
-            this.btnRunTest = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -69,6 +69,7 @@
             // 
             // lbxFunc
             // 
+            this.lbxFunc.DisplayMember = "Item1";
             this.lbxFunc.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbxFunc.FormattingEnabled = true;
             this.lbxFunc.ItemHeight = 12;
@@ -76,6 +77,7 @@
             this.lbxFunc.Name = "lbxFunc";
             this.lbxFunc.Size = new System.Drawing.Size(250, 632);
             this.lbxFunc.TabIndex = 4;
+            this.lbxFunc.ValueMember = "Item2";
             this.lbxFunc.SelectedIndexChanged += new System.EventHandler(this.lbxTest_SelectedIndexChanged);
             // 
             // splitter4
@@ -98,6 +100,17 @@
             this.grdParameter.TabIndex = 3;
             this.grdParameter.ToolbarVisible = false;
             this.grdParameter.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.grdParameter_PropertyValueChanged);
+            // 
+            // btnRunTest
+            // 
+            this.btnRunTest.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnRunTest.Location = new System.Drawing.Point(3, 743);
+            this.btnRunTest.Name = "btnRunTest";
+            this.btnRunTest.Size = new System.Drawing.Size(250, 23);
+            this.btnRunTest.TabIndex = 6;
+            this.btnRunTest.Text = "Run Test";
+            this.btnRunTest.UseVisualStyleBackColor = true;
+            this.btnRunTest.Click += new System.EventHandler(this.btnRunTest_Click);
             // 
             // tbxConsole
             // 
@@ -176,17 +189,6 @@
             this.splitter2.Size = new System.Drawing.Size(936, 3);
             this.splitter2.TabIndex = 8;
             this.splitter2.TabStop = false;
-            // 
-            // btnRunTest
-            // 
-            this.btnRunTest.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnRunTest.Location = new System.Drawing.Point(3, 743);
-            this.btnRunTest.Name = "btnRunTest";
-            this.btnRunTest.Size = new System.Drawing.Size(250, 23);
-            this.btnRunTest.TabIndex = 6;
-            this.btnRunTest.Text = "Run Test";
-            this.btnRunTest.UseVisualStyleBackColor = true;
-            this.btnRunTest.Click += new System.EventHandler(this.btnRunTest_Click);
             // 
             // FormMain
             // 

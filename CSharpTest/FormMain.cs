@@ -39,9 +39,7 @@ namespace CSharpTest {
         private void InitFunctionList() {
             var type = typeof(Test);
             MethodInfo[] mis = type.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Static | BindingFlags.Public);
-            var list = mis.Select((m, i) => new MethodInfoItem(i, m)).ToArray();
-            this.lbxFunc.DisplayMember = "Display";
-            this.lbxFunc.ValueMember = "MethodInfo";
+            var list = mis.Select((m, i) => Tuple.Create($"{i}_{m.Name}", m)).ToArray();
             this.lbxFunc.Items.AddRange(list);
             if (this.lbxFunc.Items.Count > 0)
                 this.lbxFunc.SelectedIndex = 0;
@@ -51,7 +49,7 @@ namespace CSharpTest {
         private void RunMethod() {
             var sw = Stopwatch.StartNew();
 
-            var method = (this.lbxFunc.SelectedItem as MethodInfoItem)?.MethodInfo;
+            var method = grdParameter.Tag as MethodInfo;
             var prmNameList = method.GetParameters().Select(prm => prm.Name);
             if (method != null) {
                 Console.WriteLine($"== {method.Name} ==");
@@ -71,8 +69,8 @@ namespace CSharpTest {
         }
 
         private void lbxTest_SelectedIndexChanged(object sender, EventArgs e) {
-            var mii = this.lbxFunc.SelectedItem as MethodInfoItem;
-            var mi = mii.MethodInfo;
+            var tuple = this.lbxFunc.SelectedItem as Tuple<string, MethodInfo>;
+            var mi = tuple.Item2;
             var paramInfos = mi.GetParameters();
             CustomClass cs = new CustomClass();
             foreach (var pi in paramInfos) {
@@ -88,6 +86,7 @@ namespace CSharpTest {
             }
             grdParameter.SelectedObject = cs;
             grdParameter.Refresh();
+            grdParameter.Tag = mi;
 
             this.RunMethod();
         }
@@ -103,15 +102,6 @@ namespace CSharpTest {
         private void btnRunTest_Click(object sender, EventArgs e)
         {
             this.RunMethod();
-        }
-    }
-
-    class MethodInfoItem {
-        public string Display { get; set; }
-        public MethodInfo MethodInfo { get; set; }
-        public MethodInfoItem(int index, MethodInfo mi) {
-            this.Display = $"{index+1:d2}. {mi.Name}";
-            this.MethodInfo = mi;
         }
     }
 }
