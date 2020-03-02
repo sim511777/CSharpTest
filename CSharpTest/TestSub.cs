@@ -270,7 +270,9 @@ namespace CSharpTest {
 
     public class JsonSerilizer {
         public static string ObjectToJson(object obj, bool indent) {
-            var ser = new DataContractJsonSerializer(obj.GetType());
+            DataContractJsonSerializerSettings settings = new DataContractJsonSerializerSettings();
+            settings.UseSimpleDictionaryFormat = true;
+            var ser = new DataContractJsonSerializer(obj.GetType(), settings);
             using (var ms = new MemoryStream())
             using (var writer = JsonReaderWriterFactory.CreateJsonWriter(ms, Encoding.UTF8, true, indent)) {
                 ser.WriteObject(writer, obj);
@@ -281,7 +283,9 @@ namespace CSharpTest {
         }
 
         public static T JsonToObject<T>(string json) {
-            var ser = new DataContractJsonSerializer(typeof(T));
+            DataContractJsonSerializerSettings settings = new DataContractJsonSerializerSettings();
+            settings.UseSimpleDictionaryFormat = true;
+            var ser = new DataContractJsonSerializer(typeof(T), settings);
             using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(json))) {
                 var obj = (T)ser.ReadObject(ms);
                 return obj;
