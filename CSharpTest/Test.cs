@@ -1031,7 +1031,7 @@ $@"    </table>
             }
         }
 
-        public static void DictionarySerialize2(bool indent = true, bool useSimpleDictionaryFormat = true, EmitTypeInformation emitTypeInformation = EmitTypeInformation.Never) {
+        public static void SubDictionarySerialize_DataContract(bool indent = true, bool useSimpleDictionaryFormat = true, EmitTypeInformation emitTypeInformation = EmitTypeInformation.Never) {
             Dictionary<string, object> dic = new Dictionary<string, object>();
             Dictionary<string, object> dicSub = new Dictionary<string, object>();
             dic["a"] = dicSub;
@@ -1045,7 +1045,7 @@ $@"    </table>
             File.WriteAllText("dic.json", json);
         }
 
-        public static void DictionarySerialize3(bool indent = true, bool useSimpleDictionaryFormat = true, EmitTypeInformation emitTypeInformation = EmitTypeInformation.Never) {
+        public static void SubDictionarySerialize_JavaScript() {
             Dictionary<string, object> dic = new Dictionary<string, object>();
             Dictionary<string, object> dicSub = new Dictionary<string, object>();
             dic["a"] = dicSub;
@@ -1055,6 +1055,20 @@ $@"    </table>
             dicSub["d"] = 3;
 
             var json = JsonSerializerJaveScript.ObjectToJson(dic);
+            Console.WriteLine(json);
+            File.WriteAllText("dic.json", json);
+        }
+
+        public static void SubDictionarySerialize_Newton(bool indent = true) {
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            Dictionary<string, object> dicSub = new Dictionary<string, object>();
+            dic["a"] = dicSub;
+            dicSub["a"] = 0;
+            dicSub["b"] = 1;
+            dicSub["c"] = 2;
+            dicSub["d"] = 3;
+
+            var json = JsonSerializerNewton.ObjectToJson(dic, indent);
             Console.WriteLine(json);
             File.WriteAllText("dic.json", json);
         }

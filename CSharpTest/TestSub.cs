@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace CSharpTest {
     class TestSub {
@@ -301,6 +302,21 @@ namespace CSharpTest {
         public static string ObjectToJson(object obj) {
             var ser = new JavaScriptSerializer();
             return ser.Serialize(obj);
+        }
+
+        public static T JsonToObject<T>(string json) {
+            var ser = new JavaScriptSerializer();
+            return ser.Deserialize<T>(json);
+        }
+    }
+
+    public class JsonSerializerNewton {
+        public static string ObjectToJson(object obj, bool indent) {
+            return JsonConvert.SerializeObject(obj, indent ? Formatting.Indented : Formatting.None);
+        }
+
+        public static T JsonToObject<T>(string json) {
+            return JsonConvert.DeserializeObject<T>(json);
         }
     }
 }
