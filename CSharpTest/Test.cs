@@ -1007,5 +1007,23 @@ $@"    </table>
                 Console.WriteLine(rect);
             }
         }
+
+        public static void DictionarySerialize() {
+            Dictionary<string, int> dic = new Dictionary<string, int>();
+            dic["a"] = 0;
+            dic["b"] = 1;
+            dic["c"] = 2;
+            dic["d"] = 3;
+            var json = JsonSerilizer.ObjectToJson(dic, true);
+            File.WriteAllText("dic.json", json);
+        }
+
+        public static void DictionaryDeserialize() {
+            var json = File.ReadAllText("dic.json");
+            var dic = JsonSerilizer.JsonToObject<Dictionary<string, int>>(json);
+            foreach (var pair in dic) {
+                Console.WriteLine(pair);
+            }
+        }
     }
 }
