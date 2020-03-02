@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading;
@@ -272,6 +273,7 @@ namespace CSharpTest {
         public static string ObjectToJson(object obj, bool indent) {
             DataContractJsonSerializerSettings settings = new DataContractJsonSerializerSettings();
             settings.UseSimpleDictionaryFormat = true;
+            settings.EmitTypeInformation = EmitTypeInformation.Never;
             var ser = new DataContractJsonSerializer(obj.GetType(), settings);
             using (var ms = new MemoryStream())
             using (var writer = JsonReaderWriterFactory.CreateJsonWriter(ms, Encoding.UTF8, true, indent)) {
@@ -285,6 +287,7 @@ namespace CSharpTest {
         public static T JsonToObject<T>(string json) {
             DataContractJsonSerializerSettings settings = new DataContractJsonSerializerSettings();
             settings.UseSimpleDictionaryFormat = true;
+            settings.EmitTypeInformation = EmitTypeInformation.Never;
             var ser = new DataContractJsonSerializer(typeof(T), settings);
             using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(json))) {
                 var obj = (T)ser.ReadObject(ms);
