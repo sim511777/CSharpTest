@@ -15,6 +15,7 @@ using System.Net;
 using HtmlAgilityPack;
 using System.Linq.Expressions;
 using System.Runtime.Serialization.Json;
+using System.Runtime.Serialization;
 
 namespace CSharpTest {
     class Test {
@@ -968,7 +969,7 @@ $@"    </table>
             Console.WriteLine(Add3(2));
         }
 
-        public static void ExpressionTreeTest() {
+        public static void ExpressionTreeTest(bool indent = true, bool useSimpleDictionaryFormat = true, EmitTypeInformation emitTypeInformation = EmitTypeInformation.Never) {
             Func<int, int, int> func = (a, b) => a + b;
             Expression<Func<int, int, int>> exp = (a, b) => a + b;
             var compiled = exp.Compile();
@@ -976,54 +977,72 @@ $@"    </table>
             Console.WriteLine($"{compiled(3, 4)}");
 
             try {
-                string funcJson = JsonSerilizer.ObjectToJson(func, false);
+                string funcJson = JsonSerilizer.ObjectToJson(func, indent, useSimpleDictionaryFormat, emitTypeInformation);
                 Console.WriteLine(funcJson);
             } catch (Exception ex) {
                 Console.WriteLine(ex.ToString());
             }
             try {
-                string expJson = JsonSerilizer.ObjectToJson(exp, false);
+                string expJson = JsonSerilizer.ObjectToJson(exp, indent, useSimpleDictionaryFormat, emitTypeInformation);
                 Console.WriteLine(expJson);
             } catch (Exception ex) {
                 Console.WriteLine(ex.ToString());
             }
         }
 
-        public static void RectSerialize() {
+        public static void RectSerialize(bool indent = true, bool useSimpleDictionaryFormat = true, EmitTypeInformation emitTypeInformation = EmitTypeInformation.Never) {
             var rectList = new List<Rectangle> {
                 new Rectangle(0,1,2,3),
                 new Rectangle(1,2,3,4),
                 new Rectangle(2,3,4,5),
                 new Rectangle(3,4,5,6),
                 };
-            var json = JsonSerilizer.ObjectToJson(rectList, true);
+            var json = JsonSerilizer.ObjectToJson(rectList, indent, useSimpleDictionaryFormat, emitTypeInformation);
+            Console.WriteLine(json);
             File.WriteAllText("rectList.json", json);
         }
 
-        public static void RectDeserialize() {
+        public static void RectDeserialize(bool useSimpleDictionaryFormat = true, EmitTypeInformation emitTypeInformation = EmitTypeInformation.Never) {
             var json = File.ReadAllText("rectList.json");
-            var rectList = JsonSerilizer.JsonToObject<List<Rectangle>>(json);
+            Console.WriteLine(json);
+            var rectList = JsonSerilizer.JsonToObject<List<Rectangle>>(json, useSimpleDictionaryFormat, emitTypeInformation);
             foreach (var rect in rectList) {
                 Console.WriteLine(rect);
             }
         }
 
-        public static void DictionarySerialize() {
+        public static void DictionarySerialize(bool indent = true, bool useSimpleDictionaryFormat = true, EmitTypeInformation emitTypeInformation = EmitTypeInformation.Never) {
             Dictionary<string, int> dic = new Dictionary<string, int>();
             dic["a"] = 0;
             dic["b"] = 1;
             dic["c"] = 2;
             dic["d"] = 3;
-            var json = JsonSerilizer.ObjectToJson(dic, true);
+            var json = JsonSerilizer.ObjectToJson(dic, indent, useSimpleDictionaryFormat, emitTypeInformation);
+            Console.WriteLine(json);
             File.WriteAllText("dic.json", json);
         }
 
-        public static void DictionaryDeserialize() {
+        public static void DictionaryDeserialize(bool useSimpleDictionaryFormat = true, EmitTypeInformation emitTypeInformation = EmitTypeInformation.Never) {
             var json = File.ReadAllText("dic.json");
-            var dic = JsonSerilizer.JsonToObject<Dictionary<string, int>>(json);
+            Console.WriteLine(json);
+            var dic = JsonSerilizer.JsonToObject<Dictionary<string, int>>(json, useSimpleDictionaryFormat, emitTypeInformation);
             foreach (var pair in dic) {
                 Console.WriteLine(pair);
             }
+        }
+
+        public static void DictionarySerialize2(bool indent = true, bool useSimpleDictionaryFormat = true, EmitTypeInformation emitTypeInformation = EmitTypeInformation.Never) {
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            Dictionary<string, object> dicSub = new Dictionary<string, object>();
+            dic["a"] = dicSub;
+            dicSub["a"] = 0;
+            dicSub["b"] = 1;
+            dicSub["c"] = 2;
+            dicSub["d"] = 3;
+
+            var json = JsonSerilizer.ObjectToJson(dic, indent, useSimpleDictionaryFormat, emitTypeInformation);
+            Console.WriteLine(json);
+            File.WriteAllText("dic.json", json);
         }
     }
 }

@@ -270,10 +270,10 @@ namespace CSharpTest {
     }
 
     public class JsonSerilizer {
-        public static string ObjectToJson(object obj, bool indent) {
+        public static string ObjectToJson(object obj, bool indent, bool useSimpleDictionaryFormat, EmitTypeInformation emitTypeInformation) {
             DataContractJsonSerializerSettings settings = new DataContractJsonSerializerSettings();
-            settings.UseSimpleDictionaryFormat = true;
-            settings.EmitTypeInformation = EmitTypeInformation.Never;
+            settings.UseSimpleDictionaryFormat = useSimpleDictionaryFormat;
+            settings.EmitTypeInformation = emitTypeInformation;
             var ser = new DataContractJsonSerializer(obj.GetType(), settings);
             using (var ms = new MemoryStream())
             using (var writer = JsonReaderWriterFactory.CreateJsonWriter(ms, Encoding.UTF8, true, indent)) {
@@ -284,10 +284,10 @@ namespace CSharpTest {
             }
         }
 
-        public static T JsonToObject<T>(string json) {
+        public static T JsonToObject<T>(string json, bool useSimpleDictionaryFormat, EmitTypeInformation emitTypeInformation) {
             DataContractJsonSerializerSettings settings = new DataContractJsonSerializerSettings();
-            settings.UseSimpleDictionaryFormat = true;
-            settings.EmitTypeInformation = EmitTypeInformation.Never;
+            settings.UseSimpleDictionaryFormat = useSimpleDictionaryFormat;
+            settings.EmitTypeInformation = emitTypeInformation;
             var ser = new DataContractJsonSerializer(typeof(T), settings);
             using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(json))) {
                 var obj = (T)ser.ReadObject(ms);
