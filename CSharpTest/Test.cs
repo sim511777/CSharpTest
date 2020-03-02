@@ -988,5 +988,24 @@ $@"    </table>
                 Console.WriteLine(ex.ToString());
             }
         }
+
+        public static void RectSerialize() {
+            var rectList = new List<Rectangle> {
+                new Rectangle(0,1,2,3),
+                new Rectangle(1,2,3,4),
+                new Rectangle(2,3,4,5),
+                new Rectangle(3,4,5,6),
+                };
+            var json = JsonSerilizer.ObjectToJson(rectList, true);
+            File.WriteAllText("rectList.json", json);
+        }
+
+        public static void RectDeserialize() {
+            var json = File.ReadAllText("rectList.json");
+            var rectList = JsonSerilizer.JsonToObject<List<Rectangle>>(json);
+            foreach (var rect in rectList) {
+                Console.WriteLine(rect);
+            }
+        }
     }
 }
