@@ -269,7 +269,7 @@ namespace CSharpTest {
         }
     }
 
-    public class JsonSerilizer {
+    public class JsonSerializerDataContract {
         public static string ObjectToJson(object obj, bool indent, bool useSimpleDictionaryFormat, EmitTypeInformation emitTypeInformation) {
             DataContractJsonSerializerSettings settings = new DataContractJsonSerializerSettings();
             settings.UseSimpleDictionaryFormat = useSimpleDictionaryFormat;
