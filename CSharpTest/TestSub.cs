@@ -11,6 +11,7 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using System.Web.Script.Serialization;
 
 namespace CSharpTest {
     class TestSub {
@@ -293,6 +294,13 @@ namespace CSharpTest {
                 var obj = (T)ser.ReadObject(ms);
                 return obj;
             }
+        }
+    }
+
+    public class JsonSerializerJaveScript {
+        public static string ObjectToJson(object obj) {
+            var ser = new JavaScriptSerializer();
+            return ser.Serialize(obj);
         }
     }
 }
