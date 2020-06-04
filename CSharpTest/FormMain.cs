@@ -103,5 +103,13 @@ namespace CSharpTest {
         {
             this.RunMethod();
         }
+
+        private void tbxSearch_TextChanged(object sender, EventArgs e) {
+            string searchText = tbxSearch.Text;
+            var items = lbxFunc.Items.Cast<Tuple<string, MethodInfo>>().Select((tuple, idx) => Tuple.Create(tuple.Item1, idx));
+            var searchTuple = items.FirstOrDefault(tuple => tuple.Item1.ToLower().Contains(searchText.ToLower()));
+            if (searchTuple != null)
+                lbxFunc.TopIndex = searchTuple.Item2;
+        }
     }
 }

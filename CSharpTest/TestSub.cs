@@ -319,4 +319,14 @@ namespace CSharpTest {
             return JsonConvert.DeserializeObject<T>(json);
         }
     }
+
+    public class CData {
+        public int ca = 0;
+        public int cb = 0;
+    }
+
+    public struct SData {
+        public int sa;
+        public int sb;
+    }
 }

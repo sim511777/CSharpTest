@@ -1072,5 +1072,20 @@ $@"    </table>
             Console.WriteLine(json);
             File.WriteAllText("dic.json", json);
         }
+
+        public static void StructClassTest() {
+            CData cobj = new CData();
+            List<CData> cdatas = new List<CData>();
+            cdatas.Add(cobj);
+            cobj.ca = 10;
+            Console.WriteLine($"cdatas[0].ca={cdatas[0].ca} cobj.ca={cobj.ca}");
+            
+            SData sobj = new SData();
+            List<SData> sdatas = new List<SData>();
+            sdatas.Add(sobj);
+            sobj.sa = 10;
+            Console.WriteLine($"sdatas[0].ca={sdatas[0].sa} sobj.ca={sobj.sa}");
+            Console.WriteLine("struct는 List<>에 넣을 때 인스턴스 카피가 일어난다.");
+        }
     }
 }
