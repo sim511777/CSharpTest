@@ -1087,5 +1087,11 @@ $@"    </table>
             Console.WriteLine($"sdatas[0].ca={sdatas[0].sa} sobj.ca={sobj.sa}");
             Console.WriteLine("struct는 List<>에 넣을 때 인스턴스 카피가 일어난다.");
         }
+
+        public static void CharFrequency(string text = "hello", bool ignoreCase = true) {
+            var charGroup = text.GroupBy(ch => ignoreCase ? char.ToLower(ch) : ch);
+            var items = charGroup.Select(group => $"{group.Key}:{group.Count()}");
+            Console.WriteLine(string.Join(" ", items));
+        } 
     }
 }
