@@ -1092,6 +1092,21 @@ $@"    </table>
             var charGroup = text.GroupBy(ch => ignoreCase ? char.ToLower(ch) : ch);
             var items = charGroup.Select(group => $"{group.Key}:{group.Count()}");
             Console.WriteLine(string.Join(" ", items));
-        } 
+        }
+
+        public static void EncodingStringTest(string text = "ABCD가각갂갃") {
+            Encoding[] encodings = {
+                Encoding.ASCII,     // 모든 글자를 1바이트로, 영문알파벳만 정상 인코딩됨
+                Encoding.Default,   // EUC-KR, 영문 1바이트, 한글 2바이트
+                Encoding.Unicode,   // UTF-16, 모든 글자 2바이트로
+                Encoding.UTF8,      // 영문 1바이트, 한글 3바이트
+                Encoding.BigEndianUnicode, // UTF-16 Big-Endian, 모든 글자 2바이트로 바이트 순서 뒤집어서
+                Encoding.UTF32,     // 모든 글자 4바이트로
+                Encoding.UTF7,      // 몰라
+            };
+            foreach (var encoding in encodings) {
+                File.WriteAllBytes($@"c:\test\{encoding.BodyName}.txt", encoding.GetBytes(text));
+            }
+        }
     }
 }
