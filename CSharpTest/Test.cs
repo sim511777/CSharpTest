@@ -1108,5 +1108,11 @@ $@"    </table>
                 File.WriteAllBytes($@"c:\test\{encoding.BodyName}.txt", encoding.GetBytes(text));
             }
         }
+
+        public static void DebugViewTest() {
+            foreach (var v in Enumerable.Range(0, 10)) {
+                Trace.WriteLine(v.ToString());
+            }
+        }
     }
 }
