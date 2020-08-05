@@ -1114,5 +1114,32 @@ $@"    </table>
                 Trace.WriteLine(v.ToString());
             }
         }
+
+        public static void CacheGood(int num = 100000000) {
+            int[] arr1 = Enumerable.Range(0, num).ToArray();
+            int[] arr2 = Enumerable.Range(0, num).ToArray();
+            var st = Stopwatch.GetTimestamp();
+            for (int i = 0; i < num; i++) {
+                arr1[i] *= 3;
+            }
+            for (int i = 0; i < num; i++) {
+                arr2[i] *= 3;
+            }
+            var dt = Stopwatch.GetTimestamp() - st;
+            var ms = dt * 1000.0 / Stopwatch.Frequency;
+            Console.WriteLine($"{ms:f3}ms");
+        }
+
+        public static void CacheBad(int num = 100000000) {
+            int[] arr1 = Enumerable.Range(0, num).ToArray();
+            int[] arr2 = Enumerable.Range(0, num).ToArray();
+            var st = Stopwatch.GetTimestamp();
+            for (int i = 0; i < num; i++) {
+                arr1[i] *= 3;
+                arr2[i] *= 3;
+            }
+            var dt = Stopwatch.GetTimestamp() - st;
+            var ms = dt * 1000.0 / Stopwatch.Frequency;
+            Console.WriteLine($"{ms:f3}ms");        }
     }
 }
