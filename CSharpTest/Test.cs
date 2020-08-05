@@ -1140,6 +1140,34 @@ $@"    </table>
             }
             var dt = Stopwatch.GetTimestamp() - st;
             var ms = dt * 1000.0 / Stopwatch.Frequency;
-            Console.WriteLine($"{ms:f3}ms");        }
+            Console.WriteLine($"{ms:f3}ms");
+        }
+
+        public enum LockMode { Unlock, Lock, InterlockedClass}
+        public static void LockTest(int num = 1000000, LockMode lockMode = LockMode.Unlock) {
+            int a = 0;
+            object locker = new object();
+            void Job() {
+                for (int i = 0; i < num; i++) {
+                    if (lockMode ==  LockMode.Unlock) {
+                        a += 10;
+                    } else if (lockMode == LockMode.Lock) {
+                        lock (locker)
+                            a += 10;
+                    } else {
+                        Interlocked.Add(ref a, 10);
+                    }
+                }
+            }
+
+            var st = Stopwatch.GetTimestamp();
+            var task1 = Task.Run(() => Job());
+            var task2 = Task.Run(() => Job());
+            task1.Wait();
+            task2.Wait();
+            var dt = Stopwatch.GetTimestamp() - st;
+            var ms = dt * 1000.0 / Stopwatch.Frequency;
+            Console.WriteLine($"lockMode = {lockMode}, a = {a}, {ms:f3}ms");
+        }
     }
 }
