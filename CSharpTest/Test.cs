@@ -1185,5 +1185,29 @@ $@"    </table>
             Console.WriteLine($"{mul.Method}, {mul.Target}");
             Console.WriteLine($"{mod.Method}, {mod.Target}");
         }
+
+        public static void AnonymousTypeTest() {
+            var v = new[] {
+                new { Name="Lee", Age=27, Phone="02-111-1111"},
+                new { Name="kim", Age=31, Phone="02-222-2222"},
+                new { Name="Parn", Age=37, Phone="02-333-3333"},
+            };
+            var list = v
+                .Where(p => p.Age >= 30)
+                .Select(p => new { p.Name, p.Age }); 
+            foreach (var t in list) {
+                Console.WriteLine($"{t.Name} : {t.Age}");
+            }
+
+
+            string Name = "Kim";
+            int Age = 31;
+            string Phone = "02-222-2222";
+
+            // 익명 형식 멤버는 멤버할당, 단순이름, 멤버엑세스 이어야 함
+            var a = new { Name="Lee", Age=27, Phone="02-111-1111"}; // 멤버할당
+            var b = new { Name, Age, Phone };                       // 단순이름
+            var c = new { b.Name, b.Age, b.Phone };                 // 멤버엑세스
+        }
     }
 }
