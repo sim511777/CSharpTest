@@ -149,6 +149,10 @@ namespace CSharpTest {
             var hexString = string.Join("-", strings);
             return hexString;
         }
+
+        public static int Add(int a, int b) {
+            return a + b;
+        }
     }
 
     enum ArrayStyle { Random, AscSorted, DescSorted }

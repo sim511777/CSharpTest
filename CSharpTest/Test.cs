@@ -1169,5 +1169,21 @@ $@"    </table>
             var ms = dt * 1000.0 / Stopwatch.Frequency;
             Console.WriteLine($"lockMode = {lockMode}, a = {a}, {ms:f3}ms");
         }
+
+        public static void DelegateTest() {
+            Func<int, int, int> add = Glb.Add;
+            
+            Func<int, int, int> mul = delegate(int a, int b) {
+                return a * b;
+            };
+            
+            Func<int, int, int> mod = (a, b) => a % b;
+            
+            // Delegate.Method : MethodInfo
+            // Delegate.Target : object of called method, if static value is null 
+            Console.WriteLine($"{add.Method}, {add.Target}");
+            Console.WriteLine($"{mul.Method}, {mul.Target}");
+            Console.WriteLine($"{mod.Method}, {mod.Target}");
+        }
     }
 }
