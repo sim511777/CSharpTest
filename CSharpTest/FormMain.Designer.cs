@@ -26,6 +26,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.lbxFunc = new System.Windows.Forms.ListBox();
+            this.tbxSearch = new System.Windows.Forms.TextBox();
             this.splitter4 = new System.Windows.Forms.Splitter();
             this.grdParameter = new System.Windows.Forms.PropertyGrid();
             this.btnRunTest = new System.Windows.Forms.Button();
@@ -37,7 +38,6 @@
             this.tbxCode = new ICSharpCode.TextEditor.TextEditorControl();
             this.panel3 = new System.Windows.Forms.Panel();
             this.splitter2 = new System.Windows.Forms.Splitter();
-            this.tbxSearch = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -81,6 +81,15 @@
             this.lbxFunc.TabIndex = 4;
             this.lbxFunc.ValueMember = "Item2";
             this.lbxFunc.SelectedIndexChanged += new System.EventHandler(this.lbxTest_SelectedIndexChanged);
+            // 
+            // tbxSearch
+            // 
+            this.tbxSearch.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tbxSearch.Location = new System.Drawing.Point(3, 17);
+            this.tbxSearch.Name = "tbxSearch";
+            this.tbxSearch.Size = new System.Drawing.Size(250, 21);
+            this.tbxSearch.TabIndex = 0;
+            this.tbxSearch.TextChanged += new System.EventHandler(this.tbxSearch_TextChanged);
             // 
             // splitter4
             // 
@@ -191,15 +200,6 @@
             this.splitter2.Size = new System.Drawing.Size(936, 3);
             this.splitter2.TabIndex = 8;
             this.splitter2.TabStop = false;
-            // 
-            // tbxSearch
-            // 
-            this.tbxSearch.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tbxSearch.Location = new System.Drawing.Point(3, 17);
-            this.tbxSearch.Name = "tbxSearch";
-            this.tbxSearch.Size = new System.Drawing.Size(250, 21);
-            this.tbxSearch.TabIndex = 7;
-            this.tbxSearch.TextChanged += new System.EventHandler(this.tbxSearch_TextChanged);
             // 
             // FormMain
             // 

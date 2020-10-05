@@ -1209,5 +1209,24 @@ $@"    </table>
             var b = new { Name, Age, Phone };                       // 단순이름
             var c = new { b.Name, b.Age, b.Phone };                 // 멤버엑세스
         }
+
+        public static void DynamicTest() {
+            dynamic a = "aaa";
+            Console.WriteLine(a.GetType()); // System.String
+            a = 123;
+            Console.WriteLine(a.GetType()); // System.Int32
+
+            // object vs dynamic
+            object  i = 10;
+            i = (int)i + 20;
+
+            i = "Hello";
+            string s = ((string)i).ToUpper();
+
+            dynamic d = 10;
+            d = d + 20;
+            d = "Hello";
+            string ss = d.ToUpper();
+        }
     }
 }
