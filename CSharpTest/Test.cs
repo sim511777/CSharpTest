@@ -18,6 +18,63 @@ using System.Runtime.Serialization.Json;
 using System.Runtime.Serialization;
 
 namespace CSharpTest {
+    class Glb {
+        public static void quicksort(int[] A, int lo, int hi) {
+            if (lo < hi) {
+                int p = partition(A, lo, hi);
+                quicksort(A, lo, p);
+                quicksort(A, p + 1, hi);
+            }
+        }
+
+        public static int partition(int[] A, int lo, int hi) {
+            Console.Write("part: " + new string(' ', lo * 4));
+            Console.WriteLine(string.Join("", A.Skip(lo).Take(hi - lo + 1).Select((n, idx) => idx + lo == lo ? $"#{n,2}#" : $" {n,2} ")));
+            int pivot = A[lo];  // 첫번째 요소값을 피벗으로
+            int i = lo;     // 첫번째 요소 부터 조회
+            int j = hi;     // 마지막 요소 부터 조회
+            while (true) {
+                while (A[i] < pivot) i++;   // 하나씩 뺌
+                while (A[j] > pivot) j--;   // 하나씩 뺌
+                if (i >= j) return j;       // 겹치거나 바뀌었다면 겹치거나 작은 값 리턴
+                Console.Write("swap: " + new string(' ', lo * 4));
+                Console.WriteLine(string.Join("", A.Skip(lo).Take(hi - lo + 1).Select((n, idx) => idx + lo == i || idx + lo == j ? $"[{n,2}]" : $" {n,2} ")));
+                swap(ref A[i], ref A[j]);   // 스왑
+            }
+        }
+
+        public static void swap(ref int a, ref int b) {
+            int temp = a;
+            a = b;
+            b = temp;
+        }
+
+        public static string ToHexString(byte[] bytes) {
+            var strings = bytes.Select(b => b.ToString("x2")).ToArray();
+            var hexString = string.Join("-", strings);
+            return hexString;
+        }
+
+        public static string ToBinaryString(byte[] bytes) {
+            var strings = bytes.Select(b => Convert.ToString( b, 2 ).PadLeft( 8, '0' )).ToArray();
+            var hexString = string.Join("-", strings);
+            return hexString;
+        }
+
+        public static int Add(int a, int b) {
+            return a + b;
+        }
+
+        public static int LongCalc(int n) {
+            int r = 0;
+            for (int i = 0; i < n; i++) {
+                Thread.Sleep(1000);
+                r++;
+            }
+            return r;
+        }
+    }
+
     class Test {
         public static void HelloWorld() {
             Console.WriteLine("hello, world");
@@ -1227,6 +1284,18 @@ $@"    </table>
             d = d + 20;
             d = "Hello";
             string ss = d.ToUpper();
+        }
+
+        public static void SyncTest() {
+            int r = Glb.LongCalc(10);
+            Console.WriteLine($"Sync LongCalc : r = {r}");
+        }
+
+        public static async void AsyncTest() {
+            Task<int> task = Task.Run(() => Glb.LongCalc(10));
+            int r = await task;
+            //int r = await Task.Run(() => Glb.LongCalc(10));
+            Console.WriteLine($"Async LongCalc : r = {r}");
         }
     }
 }
