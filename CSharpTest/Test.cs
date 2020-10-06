@@ -1297,5 +1297,12 @@ $@"    </table>
             //int r = await Task.Run(() => Glb.LongCalc(10));
             Console.WriteLine($"Async LongCalc : r = {r}");
         }
+
+        public static void DebuggerBreakTest(int n = 0) {
+            Console.WriteLine("Function start");
+            if (n == 5)
+                Debugger.Break();
+            Console.WriteLine("Function end");
+        }
     }
 }
