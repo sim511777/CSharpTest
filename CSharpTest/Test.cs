@@ -73,9 +73,53 @@ namespace CSharpTest {
             }
             return r;
         }
+
+        // ref : pass by reference RW
+        // out : pass by reference W
+        // int : pass by reference R
+
+        public static void RefMethod(ref int v) {
+            v += 1;
+            Console.WriteLine(v);
+        }
+
+        public static void OutMethod(out int v) {
+            v = 1;      // callee에서 할당 해주어야 함
+            v += 1;
+            Console.WriteLine(v);
+        }
+
+        public static void InMethod(in Numbers v) {
+            //v = new Numbers();   // in 파라미터는 재할당 불가, C#7.2 이상에서 지원
+            v.a = 10;   // 멤버는 재할당 가능
+            Console.WriteLine(v);
+        }
+    }
+
+    class Numbers {
+        public int a = 0;
+        public int b = 0;
     }
 
     class Test {
+        public static void RefMethodTest() {
+            int v = 1;   // caller에서 할당 해주어야 함
+            Glb.RefMethod(ref v);
+            Console.WriteLine(v);
+        }
+
+        public static void OutMethodTest() {
+            int v;
+            Glb.OutMethod(out v);
+            Console.WriteLine(v);
+        }
+
+        public static void InMethodTest() {
+            Numbers num = new Numbers();
+            Glb.InMethod(in num);
+            Console.WriteLine(num.a);
+        }
+
         public static void HelloWorld() {
             Console.WriteLine("hello, world");
         }
