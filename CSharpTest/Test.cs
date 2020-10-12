@@ -146,35 +146,41 @@ namespace CSharpTest {
         }
 
         public static void CovarianceContravariance() {
+            // 공변성, 반공변성
+            // ref 타입의 암시적 변환 가능성 여부
+            // 공변성 : 기반 타입으로 변환 가능 : 단일 객체, 배열, IEnumerable<out T>, Func<out TResult>
+            // 반공변성 : 파생 타입으로 변환 가능 : Action<in T>
+            // .net 4.0 인터페이스, 대리자 제네릭 가변성 키워드 지원 <out T>, <in T>
+
+            // 배열은 공변성 됨
             Console.WriteLine("covariance");
             Animal[] animals = { new Bird("bird"), new Bird("bird"), new Bird("bird") };
             animals.ToList().ForEach(animal => animal.Move());
 
-            // error
+            // error : 배열은 반공변성 안됨
             //Duck[] ducks = {new Bird(), new Bird(), new Bird()};
 
+            // IEnumerable<T> 는 공변성 됨 .net 4.0부터 지원
             Console.WriteLine("\r\ngeneric covariance");
             IEnumerable<Animal> animals2 = new List<Bird>() { new Bird("bird"), new Bird("bird"), new Bird("bird") };
             animals.ToList().ForEach(animal2 => animal2.Move());
 
-            // error
+            // error : IEnumerable<T> 는 반공변성 안됨
             //IEnumerable<Duck> ducks = new List<Bird>(){new Bird(), new Bird(), new Bird()};
 
             Console.WriteLine("\r\ncontravariance");
             Action<Bird> aBird = (Bird bird) => bird.Fly();
-            Action<Duck> aDuck = aBird;
+            Action<Duck> aDuck = (Duck duck) => duck.Swim();
+            aDuck = aBird;  // 델리게이트의 입력 타입은 반공변성 됨
+            //aBird = aDuck; error : 델리게이트의 입력 타입 공변성 안됨
             aDuck(new Duck("duck"));
-
-            // error
-            //Action<Animal> aAnim = aBird;
 
             Console.WriteLine("\r\ncovariance");
             Func<Bird> fBird = () => new Bird("bird");
-            Func<Animal> fAnim = fBird;
+            Func<Animal> fAnim = () => new Animal("animal");
+            fAnim = fBird;      // 델리게이트의 출력 타입은 공변성 됨
+            //fBird = fAnim;    // 델리게이트의 출력 타입은 반공변성 안됨
             fAnim().Move();
-
-            // error
-            //Func<Duck> fDuck = fBird;
         }
 
         public static void LambdaClosure() {
