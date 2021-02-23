@@ -1354,5 +1354,79 @@ $@"    </table>
                 Debugger.Break();
             Console.WriteLine("Function end");
         }
+
+        public static byte[] oriBuf = null;
+        public static void LoadBigFile() {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (ofd.ShowDialog() != DialogResult.OK)
+                return;
+
+            string filePath = ofd.FileName;
+            oriBuf = File.ReadAllBytes(filePath);
+            Console.WriteLine($"{filePath}");
+            Console.WriteLine($"{oriBuf.LongLength}byes read");
+        }
+
+        public static void GzipTest() {
+            if (oriBuf == null)
+                return;
+
+            long t0, t1, t2, t3;
+
+            byte[] zipBuf = null;
+            using (MemoryStream msZip = new MemoryStream()) {
+                using (GZipStream compressionStream = new GZipStream(msZip, CompressionMode.Compress)) {
+                    t0 = Stopwatch.GetTimestamp();
+                    compressionStream.Write(oriBuf, 0, oriBuf.Length);
+                    t1 = Stopwatch.GetTimestamp();
+                }
+                zipBuf = msZip.ToArray();
+                long compressBytes = zipBuf.LongLength;
+                Console.WriteLine($"compress   : {compressBytes}bytes");
+            }
+
+            using (MemoryStream msZip = new MemoryStream(zipBuf)) {
+                using (GZipStream decompressionStream = new GZipStream(msZip, CompressionMode.Decompress)) {
+                    t2 = Stopwatch.GetTimestamp();
+                    long decompressBytes = decompressionStream.Read(oriBuf, 0, oriBuf.Length);
+                    t3 = Stopwatch.GetTimestamp();
+                    Console.WriteLine($"decompress : {decompressBytes}bytes");
+                }
+            }
+
+            Console.WriteLine($"Gzip Compress   : {(t1-t0) / Stopwatch.Frequency:0.}s");
+            Console.WriteLine($"Gzip Decompress : {(t3-t2) / Stopwatch.Frequency:0.}s");
+        }
+
+        public static void DeplateTest() {
+            if (oriBuf == null)
+                return;
+
+            long t0, t1, t2, t3;
+
+            byte[] zipBuf = null;
+            using (MemoryStream msZip = new MemoryStream()) {
+                using (DeflateStream compressionStream = new DeflateStream(msZip, CompressionMode.Compress)) {
+                    t0 = Stopwatch.GetTimestamp();
+                    compressionStream.Write(oriBuf, 0, oriBuf.Length);
+                    t1 = Stopwatch.GetTimestamp();
+                }
+                zipBuf = msZip.ToArray();
+                long compressBytes = zipBuf.LongLength;
+                Console.WriteLine($"compress   : {compressBytes}bytes");
+            }
+
+            using (MemoryStream msZip = new MemoryStream(zipBuf)) {
+                using (DeflateStream decompressionStream = new DeflateStream(msZip, CompressionMode.Decompress)) {
+                    t2 = Stopwatch.GetTimestamp();
+                    long decompressBytes = decompressionStream.Read(oriBuf, 0, oriBuf.Length);
+                    t3 = Stopwatch.GetTimestamp();
+                    Console.WriteLine($"decompress : {decompressBytes}bytes");
+                }
+            }
+
+            Console.WriteLine($"Gzip Compress   : {(t1-t0) / Stopwatch.Frequency:0.}s");
+            Console.WriteLine($"Gzip Decompress : {(t3-t2) / Stopwatch.Frequency:0.}s");
+        }
     }
 }
