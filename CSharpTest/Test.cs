@@ -1428,5 +1428,14 @@ $@"    </table>
             Console.WriteLine($"Gzip Compress   : {(t1-t0) / Stopwatch.Frequency:0.}s");
             Console.WriteLine($"Gzip Decompress : {(t3-t2) / Stopwatch.Frequency:0.}s");
         }
+
+        public static void MemoryStreamTest() {
+            using (var ms = new MemoryStream()) {
+                for (int i = 0; i < 2049; i++) {
+                    ms.WriteByte(1);
+                    Console.WriteLine($"MemoryStream.Lenght : {ms.Length} , MemroyStream.Capacity : {ms.Capacity}");
+                }
+            }
+        }
     }
 }
