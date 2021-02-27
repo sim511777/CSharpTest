@@ -30,14 +30,14 @@ namespace DownloaderThread {
                 i++;
 
                 // 진행 보고
-                this.Invoke((Action)delegate() {
+                this.Invoke((MethodInvoker)delegate() {
                     ReportProgress(i);
                 });
             }
 
             // 결과 보고
-            this.Invoke((Action)delegate () {
-                ReportComplete();
+            this.Invoke((MethodInvoker)delegate () {
+                ReportComplete(thCancelReq ? "Canceled." : "Completed.");
             });
         }
 
@@ -49,12 +49,8 @@ namespace DownloaderThread {
         }
 
         // 결과 보고
-        private void ReportComplete() {
-            if (thCancelReq) {
-                lblLog.Text = "Canceled.";
-            } else {
-                lblLog.Text = "Completed.";
-            }
+        private void ReportComplete(string msg) {
+            lblLog.Text = msg;
         }
 
         private void btnDownload_Click(object sender, EventArgs e) {
