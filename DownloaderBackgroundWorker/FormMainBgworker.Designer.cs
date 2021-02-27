@@ -1,5 +1,5 @@
-﻿namespace DownloaderThread {
-    partial class Form1 {
+﻿namespace DownloaderBackgroundWorker {
+    partial class FormMainBgworker {
         /// <summary>
         /// 필수 디자이너 변수입니다.
         /// </summary>
@@ -23,26 +23,37 @@
         /// 이 메서드의 내용을 코드 편집기로 수정하지 마세요.
         /// </summary>
         private void InitializeComponent() {
+            this.lblPercent = new System.Windows.Forms.Label();
             this.prbPercent = new System.Windows.Forms.ProgressBar();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnDownload = new System.Windows.Forms.Button();
+            this.bgw = new System.ComponentModel.BackgroundWorker();
             this.lblLog = new System.Windows.Forms.Label();
-            this.lblPercent = new System.Windows.Forms.Label();
             this.SuspendLayout();
+            // 
+            // lblPercent
+            // 
+            this.lblPercent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblPercent.Location = new System.Drawing.Point(12, 128);
+            this.lblPercent.Name = "lblPercent";
+            this.lblPercent.Size = new System.Drawing.Size(60, 23);
+            this.lblPercent.TabIndex = 10;
+            this.lblPercent.Text = "0%";
+            this.lblPercent.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // prbPercent
             // 
             this.prbPercent.Location = new System.Drawing.Point(12, 89);
             this.prbPercent.Name = "prbPercent";
             this.prbPercent.Size = new System.Drawing.Size(476, 23);
-            this.prbPercent.TabIndex = 5;
+            this.prbPercent.TabIndex = 9;
             // 
             // btnCancel
             // 
             this.btnCancel.Location = new System.Drawing.Point(173, 12);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(142, 61);
-            this.btnCancel.TabIndex = 4;
+            this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -52,10 +63,18 @@
             this.btnDownload.Location = new System.Drawing.Point(12, 12);
             this.btnDownload.Name = "btnDownload";
             this.btnDownload.Size = new System.Drawing.Size(142, 61);
-            this.btnDownload.TabIndex = 3;
+            this.btnDownload.TabIndex = 7;
             this.btnDownload.Text = "Download";
             this.btnDownload.UseVisualStyleBackColor = true;
             this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
+            // 
+            // bgw
+            // 
+            this.bgw.WorkerReportsProgress = true;
+            this.bgw.WorkerSupportsCancellation = true;
+            this.bgw.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_DoWork);
+            this.bgw.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgw_ProgressChanged);
+            this.bgw.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgw_RunWorkerCompleted);
             // 
             // lblLog
             // 
@@ -63,18 +82,8 @@
             this.lblLog.Location = new System.Drawing.Point(78, 128);
             this.lblLog.Name = "lblLog";
             this.lblLog.Size = new System.Drawing.Size(410, 23);
-            this.lblLog.TabIndex = 13;
+            this.lblLog.TabIndex = 11;
             this.lblLog.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblPercent
-            // 
-            this.lblPercent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblPercent.Location = new System.Drawing.Point(12, 128);
-            this.lblPercent.Name = "lblPercent";
-            this.lblPercent.Size = new System.Drawing.Size(60, 23);
-            this.lblPercent.TabIndex = 12;
-            this.lblPercent.Text = "0%";
-            this.lblPercent.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Form1
             // 
@@ -87,18 +96,19 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnDownload);
             this.Name = "Form1";
-            this.Text = "Downloader(Thread)";
+            this.Text = "Downloader(BackgroundWorker)";
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
+        private System.Windows.Forms.Label lblPercent;
         private System.Windows.Forms.ProgressBar prbPercent;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnDownload;
+        private System.ComponentModel.BackgroundWorker bgw;
         private System.Windows.Forms.Label lblLog;
-        private System.Windows.Forms.Label lblPercent;
     }
 }
 

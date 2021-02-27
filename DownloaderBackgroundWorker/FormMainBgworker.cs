@@ -10,8 +10,8 @@ using System.Windows.Forms;
 using System.Threading;
 
 namespace DownloaderBackgroundWorker {
-    public partial class Form1 : Form {
-        public Form1() {
+    public partial class FormMainBgworker : Form {
+        public FormMainBgworker() {
             InitializeComponent();
         }
 
