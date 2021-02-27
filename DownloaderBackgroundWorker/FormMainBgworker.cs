@@ -48,6 +48,7 @@ namespace DownloaderBackgroundWorker {
             }
         }
 
+        // 다운로드 시작
         private void btnDownload_Click(object sender, EventArgs e) {
             if (bgw.IsBusy) {
                 MessageBox.Show("Error - Already Downloading...");
@@ -57,12 +58,8 @@ namespace DownloaderBackgroundWorker {
             bgw.RunWorkerAsync();
         }
 
+        // 다운로드 취소
         private void btnCancel_Click(object sender, EventArgs e) {
-            if (!bgw.IsBusy) {
-                MessageBox.Show("Error - No Downloading...");
-                return;
-            }
-
             bgw.CancelAsync();
         }
     }

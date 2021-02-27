@@ -31,28 +31,19 @@ namespace DownloaderThread {
 
                 // 진행 보고
                 this.Invoke((MethodInvoker)delegate() {
-                    ReportProgress(i);
+                    prbPercent.Value = i;
+                    lblPercent.Text = $"{i}%";
+                    lblLog.Text = "Downloading...";
                 });
             }
 
             // 결과 보고
             this.Invoke((MethodInvoker)delegate () {
-                ReportComplete(thCancelReq ? "Canceled." : "Completed.");
+                lblLog.Text = (thCancelReq ? "Canceled." : "Completed.");
             });
         }
 
-        // 진행 보고
-        private void ReportProgress(int percent) {
-            prbPercent.Value = percent;
-            lblPercent.Text = $"{percent}%";
-            lblLog.Text = "Downloading...";
-        }
-
-        // 결과 보고
-        private void ReportComplete(string msg) {
-            lblLog.Text = msg;
-        }
-
+        // 다운로드 시작
         private void btnDownload_Click(object sender, EventArgs e) {
             if (th != null && th.ThreadState.HasFlag(ThreadState.Stopped) == false) {
                 MessageBox.Show("Error - Already Downloading...");
@@ -63,12 +54,8 @@ namespace DownloaderThread {
             th.Start();
         }
 
+        // 다운로드 취소
         private void btnCancel_Click(object sender, EventArgs e) {
-            if (th == null || th.ThreadState.HasFlag(ThreadState.Stopped)) {
-                MessageBox.Show("Error - No Downloading...");
-                return;
-            }
-
             thCancelReq = true;
         }
     }
