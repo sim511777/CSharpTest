@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 15 for Windows Desktop
-VisualStudioVersion = 15.0.27703.2047
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31025.194
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{ECF7769F-4A47-41A5-BDFA-7693243C425C}"
 	ProjectSection(SolutionItems) = preProject
@@ -27,6 +27,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DownloaderBackgroundWorker", "DownloaderBackgroundWorker\DownloaderBackgroundWorker.csproj", "{0932CE03-3850-4A13-8626-7A3C8EE43D36}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Variance", "Variance\Variance.csproj", "{7F8A6456-36EF-4301-8938-058ABF5AB5BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp_Modern", "CSharp_Modern\CSharp_Modern.csproj", "{5BA49D7D-2098-4D4B-8BD4-700B07669912}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -108,6 +110,18 @@ Global
 		{7F8A6456-36EF-4301-8938-058ABF5AB5BD}.Release|x64.Build.0 = Release|Any CPU
 		{7F8A6456-36EF-4301-8938-058ABF5AB5BD}.Release|x86.ActiveCfg = Release|Any CPU
 		{7F8A6456-36EF-4301-8938-058ABF5AB5BD}.Release|x86.Build.0 = Release|Any CPU
+		{5BA49D7D-2098-4D4B-8BD4-700B07669912}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BA49D7D-2098-4D4B-8BD4-700B07669912}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BA49D7D-2098-4D4B-8BD4-700B07669912}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5BA49D7D-2098-4D4B-8BD4-700B07669912}.Debug|x64.Build.0 = Debug|Any CPU
+		{5BA49D7D-2098-4D4B-8BD4-700B07669912}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5BA49D7D-2098-4D4B-8BD4-700B07669912}.Debug|x86.Build.0 = Debug|Any CPU
+		{5BA49D7D-2098-4D4B-8BD4-700B07669912}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BA49D7D-2098-4D4B-8BD4-700B07669912}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BA49D7D-2098-4D4B-8BD4-700B07669912}.Release|x64.ActiveCfg = Release|Any CPU
+		{5BA49D7D-2098-4D4B-8BD4-700B07669912}.Release|x64.Build.0 = Release|Any CPU
+		{5BA49D7D-2098-4D4B-8BD4-700B07669912}.Release|x86.ActiveCfg = Release|Any CPU
+		{5BA49D7D-2098-4D4B-8BD4-700B07669912}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
