@@ -5,6 +5,26 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace EnumerableTest {
+    // Custom comparer for the Product class
+    class EvenOddCompare : IEqualityComparer<int>
+    {
+        // Products are equal if their names and product numbers are equal.
+        public bool Equals(int x, int y)
+        {
+
+            return (x % 2) == (y % 2);
+        }
+
+        // If Equals() returns true for a pair of objects 
+        // then GetHashCode() must return the same value for these objects.
+
+        public int GetHashCode(int x)
+        {
+            return (x % 2).GetHashCode();
+        }
+
+    }
+
     class Program {
         static void Print(string name, object value) {
             Console.WriteLine($"{name} = {value}");
@@ -17,6 +37,11 @@ namespace EnumerableTest {
         static void Main(string[] args) {
             var seq1 = Enumerable.Range(0, 10);
             var seq2 = Enumerable.Range(5, 10);
+            
+            var Distinct1 = seq1.Concat(seq2).Distinct();
+            Print("Distinct1", Distinct1);
+            var Distinct2 = seq1.Concat(seq2).Distinct(new EvenOddCompare());
+            Print("Distinct2", Distinct2);
 
             // Cast : 지정된 타입의 제너릭 시퀀스로 캐스팅, 요소중 하나라도 캐스팅이 안되면 익셉션 발생
             var cast = seq1.Cast<int>();
