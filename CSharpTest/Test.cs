@@ -16,6 +16,7 @@ using HtmlAgilityPack;
 using System.Linq.Expressions;
 using System.Runtime.Serialization.Json;
 using System.Runtime.Serialization;
+using System.Drawing.Imaging;
 
 namespace CSharpTest {
     class Glb {
@@ -1449,5 +1450,32 @@ $@"    </table>
             int cnt2 = pt?.X ?? 100;        // ex) row가 null이 아니면 .Count, null이면 100 리턴
             //list ??= new List<int>();     // ??== : null 병합할당 연산자(C#8.0). list가 null 이면 new List<int>() 할당
         }
+
+        public static Dictionary<EImageFormat, ImageFormat> ImageFormats = new Dictionary<EImageFormat, ImageFormat>() {
+            { EImageFormat.Bmp, ImageFormat.Bmp },
+            { EImageFormat.Jpeg, ImageFormat.Jpeg },
+            { EImageFormat.Png, ImageFormat.Png },
+            { EImageFormat.Tiff, ImageFormat.Tiff },
+        };
+
+        public static void ImageSave(int width = 1920, int height = 1080, PixelFormat pf = PixelFormat.Format32bppArgb, EImageFormat eimgFmt = EImageFormat.Bmp) {
+            var imgFmt = ImageFormats[eimgFmt];
+            using (var bmp = new Bitmap(width, height, pf)) {
+                //using (var g = Graphics.FromImage(bmp)) {
+                //    g.Clear(Color.Blue);
+                //    g.FillEllipse(Brushes.Yellow, 100, 100, 500, 500);
+                //}
+                var filePath = $@"c:\test\{width}x{height}_{pf}.{imgFmt}";
+                bmp.Save(filePath, imgFmt);
+                Console.WriteLine($"{filePath} succeed");
+            }
+        }
+    }
+
+    public enum EImageFormat {
+        Bmp,
+        Jpeg,
+        Png,
+        Tiff,
     }
 }
