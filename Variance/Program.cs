@@ -9,24 +9,24 @@ namespace Variance {
         static void Main(string[] args) {
             // class assign은 covariance
             Animal animal = new Bird("bird");
-            Duck duck = new Bird("Bird");
+            //Duck duck = new Bird("Bird");
 
             // class 배열은 covariance
             Animal[] animals = new Bird[10];
-            Duck[] ducks = new Bird[10];
+            //Duck[] ducks = new Bird[10];
 
             // delegate 리턴타입은 covariance
             DelAnimalVoid av = FuncBirdVoid;
-            DelDuckVoid dv = FuncBirdVoid;
+            //DelDuckVoid dv = FuncBirdVoid;
 
             // delegate 파라미터타입은 contravariance
-            DelVoidAnimal va = FuncVoidBird;
+            //DelVoidAnimal va = FuncVoidBird;
             DelVoidDuck vd = FuncVoidBird;
 
             // .net 4.0 부터 Generic variance 지원(out, in 키워드)
             // IEnumerable<out T>
             IEnumerable<Animal> animalList = new List<Bird>();
-            IEnumerable<Duck> duckList = new List<Bird>();
+            //IEnumerable<Duck> duckList = new List<Bird>();
         }
 
         public static Animal FuncAnimalVoid() {

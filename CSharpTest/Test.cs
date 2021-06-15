@@ -1451,6 +1451,12 @@ $@"    </table>
             //list ??= new List<int>();     // ??== : null 병합할당 연산자(C#8.0). list가 null 이면 new List<int>() 할당
         }
 
+        public enum EImageFormat {
+            Bmp,
+            Jpeg,
+            Png,
+            Tiff,
+        }
         public static Dictionary<EImageFormat, ImageFormat> ImageFormats = new Dictionary<EImageFormat, ImageFormat>() {
             { EImageFormat.Bmp, ImageFormat.Bmp },
             { EImageFormat.Jpeg, ImageFormat.Jpeg },
@@ -1470,12 +1476,5 @@ $@"    </table>
                 Console.WriteLine($"{filePath} succeed");
             }
         }
-    }
-
-    public enum EImageFormat {
-        Bmp,
-        Jpeg,
-        Png,
-        Tiff,
     }
 }
