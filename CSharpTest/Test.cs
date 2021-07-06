@@ -1476,5 +1476,21 @@ $@"    </table>
                 Console.WriteLine($"{filePath} succeed");
             }
         }
+
+        public static void EnumFlagsTest() {
+            Direction dir = Direction.North | Direction.East;
+            Console.WriteLine(dir.HasFlag(Direction.None));
+            dir = 0;
+            Console.WriteLine(dir.HasFlag(Direction.None));
+        }
+    }
+
+    [Flags]
+    enum Direction {
+        None = 0,
+        North = 1 << 0,
+        East = 1 << 1,
+        West = 1 << 2,
+        South = 1 << 3,
     }
 }
