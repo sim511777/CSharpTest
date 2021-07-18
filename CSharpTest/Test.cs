@@ -1483,6 +1483,52 @@ $@"    </table>
             dir = 0;
             Console.WriteLine(dir.HasFlag(Direction.None));
         }
+
+        public static void DateTime_ToString_Standard() {
+            // 표준 DateTime 형식 문자열
+            // "d" : 2021-07-18
+            // "D" : 2021년 7월 18일 일요일
+            // "t" : 오후 5:16
+            // "T" : 오후 5:16:47
+            // "f" : 2021년 7월 18일 일요일 오후 5:16
+            // "F" : 2021년 7월 18일 일요일 오후 5:16:47
+            // "g" : 2021-07-18 오후 5:16
+            // "G" : 2021-07-18 오후 5:16:47
+            // "M" : 7월 18일
+            // "m" : 7월 18일
+            // "R" : Sun, 18 Jul 2021 17:16:47 GMT
+            // "r" : Sun, 18 Jul 2021 17:16:47 GMT
+            // "s" : 2021-07-18T17:16:47
+            // "u" : 2021-07-18 17:16:47Z
+            // "U" : 2021년 7월 18일 일요일 오전 8:16:47
+            // "Y" : 2021년 7월
+            // "y" : 2021년 7월
+            DateTime now = DateTime.Now;
+            var fmtList = "d,D,t,T,f,F,g,G,M,m,R,r,s,u,U,Y,y".Split(',');
+            foreach (var fmt in fmtList) {
+                Console.WriteLine($"{fmt} : {now.ToString(fmt)}");
+            }
+
+        }
+
+        public static void DateTime_ToString_Custom(string fmt = "[(gg)yyyy/MM/dd(dddd) (tt)HH:mm:ss.fff(zzzz)]") {
+            // 사용자 지정 DateTime 형식 문자열
+            // yy:년 두자리, yyyy:4자리
+            // M:월, MM:두자리 채움
+            // d:일, dd:두자리 채움
+
+            // h:12시간 hh:두자리 채움, H:24시간 HH:두자리 채움
+            // m:분, mm:두자리 채움
+            // s:초, ss:두자리 채움
+            // fff...:밀리초...
+
+            // ddd:요일 한글자, dddd:3글자
+            // gg:서기
+            // tt:오전/오후
+            // zzzz:offset from UTC
+            var now = DateTime.Now;
+            Console.WriteLine($"{fmt} : {now.ToString(fmt)}");
+        }
     }
 
     [Flags]
