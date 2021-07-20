@@ -17,6 +17,7 @@ using System.Linq.Expressions;
 using System.Runtime.Serialization.Json;
 using System.Runtime.Serialization;
 using System.Drawing.Imaging;
+using System.Globalization;
 
 namespace CSharpTest {
     class Glb {
@@ -1528,6 +1529,36 @@ $@"    </table>
             // zzzz:offset from UTC
             var now = DateTime.Now;
             Console.WriteLine($"{fmt} : {now.ToString(fmt)}");
+        }
+
+        public static void String_Format() {
+            Console.WriteLine("중괄호 : {{}}");
+            Console.WriteLine("얼라인 : |{0}|{0,10}|{0,-10}|", 10);
+            Console.WriteLine("NoFormat : {0} {0:G}", 10);
+        }
+
+        public static void String_Format_Standard() {
+            Console.WriteLine("통화 : {0:C}", 12345.6789);
+            Console.WriteLine("통화, 소수점자리수0채움 : {0:C3}", 12345.6789);
+            Console.WriteLine("정수 : {0:D}", 12345);
+            Console.WriteLine("정수, 자리수0채움 : {0:D8}", 12345);
+            Console.WriteLine("지수, e+ : {0:e}", 12345.6789);
+            Console.WriteLine("지수, E+ : {0:E}", 12345.6789);
+            Console.WriteLine("지수, e+,가수부4자리 : {0:e4}", 12345.6789);
+            Console.WriteLine("부동소수 : {0:F}", 12345.6789);
+            Console.WriteLine("부동소수, 소수점자리수0채움 : {0:F0}", 12345.6789);
+            Console.WriteLine("부동소수, 소수점자리수0채움 : {0:F10}", 12345.6789);
+            Console.WriteLine("알아서 : {0:G2}", 12345.6789);
+            Console.WriteLine("3자리 마다 콤마추가 : {0:N}", 12345.6789);
+            Console.WriteLine("3자리 마다 콤마추가, 소수점자리수 : {0:N1}", 12345.6789);
+            Console.WriteLine("백분율 : {0:P}", 12345.6789);
+            Console.WriteLine("백분율, 소수점자리수0채움 : {0:P1}", 12345.6789);
+            Console.WriteLine("RoundTrip : {0:r}", Math.PI);
+            Console.WriteLine("RoundTrip : {0:r}", 1.623e-21);
+            Console.WriteLine("16진수 소문자 : {0:x}", 0x2045e);
+            Console.WriteLine("16진수 대문자 : {0:X}", 0x2045e);
+            Console.WriteLine("16진수 자리수0채움 : {0:X8}", 0x2045e);
+
         }
     }
 
