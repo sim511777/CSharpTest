@@ -18,6 +18,7 @@ using System.Runtime.Serialization.Json;
 using System.Runtime.Serialization;
 using System.Drawing.Imaging;
 using System.Globalization;
+using System.Collections;
 
 namespace CSharpTest {
     class Glb {
@@ -1559,6 +1560,76 @@ $@"    </table>
             Console.WriteLine("16진수 대문자 : {0:X}", 0x2045e);
             Console.WriteLine("16진수 자리수0채움 : {0:X8}", 0x2045e);
 
+        }
+
+        public static void EnumerableTest()
+        {
+            var enumerable = Enumerable.Range(0, 10);
+            
+            var enumerator = enumerable.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var n = enumerator.Current;
+            }
+
+            foreach (var n in enumerable)
+            {
+
+            }
+
+            var myEnumerable = new MyEnumerable();
+
+            foreach (var n in myEnumerable)
+            {
+                Console.WriteLine(n);
+            }
+
+            var range = MyEnumerable.Range(0, 5);
+            foreach (var n in range)
+            {
+                Console.WriteLine(n);
+            }
+        }
+    }
+
+    class MyEnumerable : IEnumerable
+    {
+        private int[] array = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, };
+        public IEnumerator GetEnumerator()
+        {
+            return (IEnumerator)new MyEnumerator(array);
+        }
+
+        public static IEnumerable<int> Range(int start, int num)
+        {
+            while (num-- > 0)
+            {
+                yield return start++;
+            }
+        }
+    }
+
+    class MyEnumerator : IEnumerator
+    {
+        private int[] array;
+        private int idx = -1;
+
+        public MyEnumerator(int[] array)
+        {
+            this.array = array;
+        }
+
+        public object Current => array[idx];
+
+        public bool MoveNext()
+        {
+            idx++;
+            return idx < array.Length;
+        }
+
+        public void Reset()
+        {
+            idx = -1;
         }
     }
 
