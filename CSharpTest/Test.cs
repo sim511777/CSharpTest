@@ -1565,28 +1565,35 @@ $@"    </table>
         public static void EnumerableTest()
         {
             var enumerable = Enumerable.Range(0, 10);
-            
-            var enumerator = enumerable.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                var n = enumerator.Current;
-            }
 
+            Console.WriteLine("foreach");
             foreach (var n in enumerable)
-            {
-
-            }
-
-            var myEnumerable = new MyEnumerable();
-
-            foreach (var n in myEnumerable)
             {
                 Console.WriteLine(n);
             }
 
+            Console.WriteLine("while conversion");
+            using (var enumerator = enumerable.GetEnumerator()) {
+                while (enumerator.MoveNext())
+                {
+                    var n = enumerator.Current;
+                    Console.WriteLine(n);
+                    enumerator.Dispose();
+                }
+            }
+            // non generic IEnumerator is not IDisposible
+            // ex) ArrayList, int[]
+
+            var myEnumerable = new MyEnumerable();
+
+            Console.WriteLine("MyEnumerable foreach");
+            foreach (var n in myEnumerable) {
+                Console.WriteLine(n);
+            }
+
+            Console.WriteLine("MyEnumerable.Range");
             var range = MyEnumerable.Range(0, 5);
-            foreach (var n in range)
-            {
+            foreach (var n in range) {
                 Console.WriteLine(n);
             }
         }
