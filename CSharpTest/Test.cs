@@ -999,7 +999,7 @@ $@"    </table>
             Console.WriteLine($"Marshal.SizeOf(typeof(bool)) = {Marshal.SizeOf(typeof(bool))}");
         }
 
-        public static void ValutTupleTest() {
+        public static void ValueTupleTest() {
             Tuple<string, int> GiveMe7() {
                 return Tuple.Create("Seven", 7);
             }
@@ -1015,9 +1015,14 @@ $@"    </table>
             var tuple7 = GiveMe7();
             var tuple8 = GiveMe8();
             var tuple9 = GiveMe9();
+            var tuple10 = ("Ten", 10);
+            var tuple11 = (name: "Eleven", num: 11);
+
             Console.WriteLine($"tuple7.Item1={tuple7.Item1}, tuple7.Item2={tuple7.Item2}");
             Console.WriteLine($"tuple8.Item1={tuple8.Item1}, tuple8.Item2={tuple8.Item2}");
             Console.WriteLine($"tuple9.name={tuple9.name}, tuple9.num={tuple9.num}");
+            Console.WriteLine($"tuple10.name={tuple10.Item1}, tuple10.num={tuple10.Item2}");
+            Console.WriteLine($"tuple11.name={tuple11.name}, tuple11.num={tuple11.num}");
             Console.WriteLine();
 
             var (name7, num7) = GiveMe7();
@@ -1026,6 +1031,16 @@ $@"    </table>
             Console.WriteLine($"name7={name7}, num7={num7}");
             Console.WriteLine($"name8={name8}, num8={num8}");
             Console.WriteLine($"name9={name9}, num9={num9}");
+        }
+
+        public static void TwoReturnFunctionTest() {
+            (string, int) GetTwoItems() {
+                return ("One", 1);
+            }
+
+            var (name, num) = GetTwoItems();
+
+            Console.WriteLine($"name={name}, num={num}");
         }
 
         public static void FuncCombinationTest() {
