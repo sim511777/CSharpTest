@@ -679,7 +679,14 @@ $@"    </table>
         }
 
         public static void ParallelForTest() {
-            var result = Parallel.For(0, 100, (i) => Console.WriteLine("{0} : {1}", i, Thread.CurrentThread.ManagedThreadId));
+            var locker = new object();
+            var result = Parallel.For(0, 100, (i) => {
+                lock (locker) {
+                    Console.WriteLine("{0:00} : {1:00}", i, Thread.CurrentThread.ManagedThreadId);
+                    Thread.Sleep(30);
+                }
+            }
+            );
         }
 
         public static void HttpGetTest(string url = "https://api.jsonbin.io/b/5ce6bb555302fd1986c60aa0") {
