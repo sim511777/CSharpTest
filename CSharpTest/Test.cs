@@ -1634,55 +1634,14 @@ $@"    </table>
                 Console.WriteLine($"download : {addr}");
             }
         }
-    }
 
-    class MyEnumerable : IEnumerable
-    {
-        private int[] array = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, };
-        public IEnumerator GetEnumerator()
-        {
-            return (IEnumerator)new MyEnumerator(array);
+        public static void MethodCompileTest() {
+            int a = 10;
+            int b = 13;
+            Console.WriteLine($"MethodCompile.Add_MethodCodeType_IL(a, b) = {MethodCompile.Add_MethodCodeType_IL(a, b)}");
+            Console.WriteLine($"MethodCompile.Add_MethodCodeType_Native(a, b) = {MethodCompile.Add_MethodCodeType_Native(a, b)}");
+            Console.WriteLine($"MethodCompile.Add_MethodCodeType_OPTIL(a, b) = {MethodCompile.Add_MethodCodeType_OPTIL(a, b)}");
+            Console.WriteLine($"MethodCompile.Add_MethodCodeType_Runtime(a, b) = {MethodCompile.Add_MethodCodeType_Runtime(a, b)}");
         }
-
-        public static IEnumerable<int> Range(int start, int num)
-        {
-            while (num-- > 0)
-            {
-                yield return start++;
-            }
-        }
-    }
-
-    class MyEnumerator : IEnumerator
-    {
-        private int[] array;
-        private int idx = -1;
-
-        public MyEnumerator(int[] array)
-        {
-            this.array = array;
-        }
-
-        public object Current => array[idx];
-
-        public bool MoveNext()
-        {
-            idx++;
-            return idx < array.Length;
-        }
-
-        public void Reset()
-        {
-            idx = -1;
-        }
-    }
-
-    [Flags]
-    enum Direction {
-        None = 0,
-        North = 1 << 0,
-        East = 1 << 1,
-        West = 1 << 2,
-        South = 1 << 3,
     }
 }

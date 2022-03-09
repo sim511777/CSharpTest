@@ -13,6 +13,8 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
+using System.Collections;
+using System.Runtime.CompilerServices;
 
 namespace CSharpTest {
     class TestSub {
@@ -284,5 +286,67 @@ namespace CSharpTest {
     public struct SData {
         public int sa;
         public int sb;
+    }
+
+
+    class MyEnumerable : IEnumerable {
+        private int[] array = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, };
+        public IEnumerator GetEnumerator() {
+            return (IEnumerator)new MyEnumerator(array);
+        }
+
+        public static IEnumerable<int> Range(int start, int num) {
+            while (num-- > 0) {
+                yield return start++;
+            }
+        }
+    }
+
+    class MyEnumerator : IEnumerator {
+        private int[] array;
+        private int idx = -1;
+
+        public MyEnumerator(int[] array) {
+            this.array = array;
+        }
+
+        public object Current => array[idx];
+
+        public bool MoveNext() {
+            idx++;
+            return idx < array.Length;
+        }
+
+        public void Reset() {
+            idx = -1;
+        }
+    }
+
+    [Flags]
+    enum Direction {
+        None = 0,
+        North = 1 << 0,
+        East = 1 << 1,
+        West = 1 << 2,
+        South = 1 << 3,
+    }
+
+    public class MethodCompile {
+        [MethodImpl(MethodCodeType = MethodCodeType.IL)]
+        public static int Add_MethodCodeType_IL(int a, int b) {
+            return a + b;
+        }
+        [MethodImpl(MethodCodeType = MethodCodeType.Native)]
+        public static int Add_MethodCodeType_Native(int a, int b) {
+            return a + b;
+        }
+        [MethodImpl(MethodCodeType = MethodCodeType.OPTIL)]
+        public static int Add_MethodCodeType_OPTIL(int a, int b) {
+            return a + b;
+        }
+        [MethodImpl(MethodCodeType = MethodCodeType.Runtime)]
+        public static int Add_MethodCodeType_Runtime(int a, int b) {
+            return a + b;
+        }
     }
 }
