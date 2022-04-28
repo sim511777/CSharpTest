@@ -17,6 +17,89 @@ using System.Collections;
 using System.Runtime.CompilerServices;
 
 namespace CSharpTest {
+    class Glb {
+        public static void quicksort(int[] A, int lo, int hi) {
+            if (lo < hi) {
+                int p = partition(A, lo, hi);
+                quicksort(A, lo, p);
+                quicksort(A, p + 1, hi);
+            }
+        }
+
+        public static int partition(int[] A, int lo, int hi) {
+            Console.Write("part: " + new string(' ', lo * 4));
+            Console.WriteLine(string.Join("", A.Skip(lo).Take(hi - lo + 1).Select((n, idx) => idx + lo == lo ? $"#{n,2}#" : $" {n,2} ")));
+            int pivot = A[lo];  // 첫번째 요소값을 피벗으로
+            int i = lo;     // 첫번째 요소 부터 조회
+            int j = hi;     // 마지막 요소 부터 조회
+            while (true) {
+                while (A[i] < pivot) i++;   // 하나씩 뺌
+                while (A[j] > pivot) j--;   // 하나씩 뺌
+                if (i >= j) return j;       // 겹치거나 바뀌었다면 겹치거나 작은 값 리턴
+                Console.Write("swap: " + new string(' ', lo * 4));
+                Console.WriteLine(string.Join("", A.Skip(lo).Take(hi - lo + 1).Select((n, idx) => idx + lo == i || idx + lo == j ? $"[{n,2}]" : $" {n,2} ")));
+                swap(ref A[i], ref A[j]);   // 스왑
+            }
+        }
+
+        public static void swap(ref int a, ref int b) {
+            int temp = a;
+            a = b;
+            b = temp;
+        }
+
+        public static string ToHexString(byte[] bytes) {
+            var strings = bytes.Select(b => b.ToString("x2")).ToArray();
+            var hexString = string.Join("-", strings);
+            return hexString;
+        }
+
+        public static string ToBinaryString(byte[] bytes) {
+            var strings = bytes.Select(b => Convert.ToString(b, 2).PadLeft(8, '0')).ToArray();
+            var hexString = string.Join("-", strings);
+            return hexString;
+        }
+
+        public static int Add(int a, int b) {
+            return a + b;
+        }
+
+        public static int LongCalc(int n) {
+            int r = 0;
+            for (int i = 0; i < n; i++) {
+                Thread.Sleep(1000);
+                r++;
+            }
+            return r;
+        }
+
+        // ref : pass by reference RW
+        // out : pass by reference W
+        // int : pass by reference R
+
+        public static void RefMethod(ref int v) {
+            v += 1;
+            Console.WriteLine(v);
+        }
+
+        public static void OutMethod(out int v) {
+            v = 1;      // callee에서 할당 해주어야 함
+            v += 1;
+            Console.WriteLine(v);
+        }
+
+        public static void InMethod(in Numbers v) {
+            //v = new Numbers();   // in 파라미터는 재할당 불가, C#7.2 이상에서 지원
+            v.a = 10;   // 멤버는 재할당 가능
+            Console.WriteLine(v);
+        }
+    }
+
+    class Numbers {
+        public int a = 0;
+        public int b = 0;
+    }
+
     class TestSub {
         public static int LocalFunctionFactorial(int n) {
             return nthFactorial(n);
@@ -347,6 +430,40 @@ namespace CSharpTest {
         [MethodImpl(MethodCodeType = MethodCodeType.Runtime)]
         public static int Add_MethodCodeType_Runtime(int a, int b) {
             return a + b;
+        }
+    }
+
+    public class Record {
+        public string item0;
+        public string item1;
+        public string item2;
+        public string item3;
+        public string item4;
+        public string item5;
+        public string item6;
+        public string item7;
+        public string item8;
+        public string item9;
+        public string item10;
+        public string item11;
+        public string item12;
+        public string item13;
+
+        public Record(string item0, string item1, string item2, string item3, string item4, string item5, string item6, string item7, string item8, string item9, string item10, string item11, string item12, string item13) {
+            this.item0 = item0;
+            this.item1 = item1;
+            this.item2 = item2;
+            this.item3 = item3;
+            this.item4 = item4;
+            this.item5 = item5;
+            this.item6 = item6;
+            this.item7 = item7;
+            this.item8 = item8;
+            this.item9 = item9;
+            this.item10 = item10;
+            this.item11 = item11;
+            this.item12 = item12;
+            this.item13 = item13;
         }
     }
 }
