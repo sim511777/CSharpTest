@@ -19,6 +19,7 @@ using System.Runtime.Serialization;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.Collections;
+using Microsoft.VisualBasic;
 
 namespace CSharpTest {
     class Test {
@@ -1576,6 +1577,11 @@ $@"    </table>
             var t1 = Util.GetTimeMs();
 
             Console.WriteLine($"time(ms) : {t1 - t0:F1}");
+        }
+
+        public static void EditMessageBoxTest() {
+            var str = Interaction.InputBox("Your Message ", "Title", "Default Response");
+            Console.WriteLine(str);
         }
     }
 }
