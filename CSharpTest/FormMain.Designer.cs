@@ -38,10 +38,13 @@
             this.tbxCode = new ICSharpCode.TextEditor.TextEditorControl();
             this.panel3 = new System.Windows.Forms.Panel();
             this.splitter2 = new System.Windows.Forms.Splitter();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.lblHilightIndex = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -57,7 +60,7 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.lbxFunc);
-            this.groupBox3.Controls.Add(this.tbxSearch);
+            this.groupBox3.Controls.Add(this.panel4);
             this.groupBox3.Controls.Add(this.splitter4);
             this.groupBox3.Controls.Add(this.grdParameter);
             this.groupBox3.Controls.Add(this.btnRunTest);
@@ -73,6 +76,7 @@
             // 
             this.lbxFunc.DisplayMember = "Item1";
             this.lbxFunc.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbxFunc.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lbxFunc.FormattingEnabled = true;
             this.lbxFunc.ItemHeight = 12;
             this.lbxFunc.Location = new System.Drawing.Point(3, 38);
@@ -80,16 +84,18 @@
             this.lbxFunc.Size = new System.Drawing.Size(250, 611);
             this.lbxFunc.TabIndex = 4;
             this.lbxFunc.ValueMember = "Item2";
+            this.lbxFunc.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbxFunc_DrawItem);
             this.lbxFunc.SelectedIndexChanged += new System.EventHandler(this.lbxTest_SelectedIndexChanged);
             // 
             // tbxSearch
             // 
-            this.tbxSearch.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tbxSearch.Location = new System.Drawing.Point(3, 17);
+            this.tbxSearch.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbxSearch.Location = new System.Drawing.Point(0, 0);
             this.tbxSearch.Name = "tbxSearch";
-            this.tbxSearch.Size = new System.Drawing.Size(250, 21);
+            this.tbxSearch.Size = new System.Drawing.Size(195, 21);
             this.tbxSearch.TabIndex = 0;
             this.tbxSearch.TextChanged += new System.EventHandler(this.tbxSearch_TextChanged);
+            this.tbxSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnSearch_KeyDown);
             // 
             // splitter4
             // 
@@ -201,6 +207,26 @@
             this.splitter2.TabIndex = 8;
             this.splitter2.TabStop = false;
             // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.tbxSearch);
+            this.panel4.Controls.Add(this.lblHilightIndex);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel4.Location = new System.Drawing.Point(3, 17);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(250, 21);
+            this.panel4.TabIndex = 7;
+            // 
+            // lblHilightIndex
+            // 
+            this.lblHilightIndex.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblHilightIndex.Location = new System.Drawing.Point(195, 0);
+            this.lblHilightIndex.Name = "lblHilightIndex";
+            this.lblHilightIndex.Size = new System.Drawing.Size(55, 21);
+            this.lblHilightIndex.TabIndex = 8;
+            this.lblHilightIndex.Text = "(0/0)";
+            this.lblHilightIndex.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -216,10 +242,11 @@
             this.Text = "C# Test";
             this.panel1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -241,6 +268,8 @@
         private System.Windows.Forms.Splitter splitter2;
         private System.Windows.Forms.Button btnRunTest;
         private System.Windows.Forms.TextBox tbxSearch;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label lblHilightIndex;
     }
 }
 

@@ -39,8 +39,8 @@ namespace CSharpTest {
         private void InitFunctionList() {
             var type = typeof(Test);
             MethodInfo[] mis = type.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Static | BindingFlags.Public);
-            var list = mis.Select((m, i) => Tuple.Create($"{i}_{m.Name}", m)).ToArray();
-            this.lbxFunc.Items.AddRange(list);
+            this.lbxFunc.DisplayMember = "Name";
+            this.lbxFunc.Items.AddRange(mis);
             if (this.lbxFunc.Items.Count > 0)
                 this.lbxFunc.SelectedIndex = 0;
         }
@@ -69,8 +69,7 @@ namespace CSharpTest {
         }
 
         private void lbxTest_SelectedIndexChanged(object sender, EventArgs e) {
-            var tuple = this.lbxFunc.SelectedItem as Tuple<string, MethodInfo>;
-            var mi = tuple.Item2;
+            var mi = this.lbxFunc.SelectedItem as MethodInfo;
             var paramInfos = mi.GetParameters();
             CustomClass cs = new CustomClass();
             foreach (var pi in paramInfos) {
@@ -104,12 +103,67 @@ namespace CSharpTest {
             this.RunMethod();
         }
 
+        List<int> matchIdx = new List<int>();
+        int hilightIdx = -1;
+
         private void tbxSearch_TextChanged(object sender, EventArgs e) {
-            string searchText = tbxSearch.Text;
-            var items = lbxFunc.Items.Cast<Tuple<string, MethodInfo>>().Select((tuple, idx) => Tuple.Create(tuple.Item1, idx));
-            var searchTuple = items.FirstOrDefault(tuple => tuple.Item1.ToLower().Contains(searchText.ToLower()));
-            if (searchTuple != null)
-                lbxFunc.TopIndex = searchTuple.Item2;
+            matchIdx.Clear();
+            hilightIdx = -1;
+
+            string searchText = tbxSearch.Text.ToLower();
+            if (searchText != string.Empty) {
+                var items = lbxFunc.Items.Cast<MethodInfo>().Select((mi, idx) => new { methodName = mi.Name.ToLower(), methodIdx = idx });
+                var searchIdxs = items.Where(item => item.methodName.Contains(searchText)).Select(item => item.methodIdx);
+                matchIdx.AddRange(searchIdxs);
+            }
+
+            if (matchIdx.Count == 0) {
+                lblHilightIndex.Text = "(0/0)";
+            } else {
+                int hiIdx = 0;
+                SetHightlightIndex(hiIdx);
+            }
+            lbxFunc.Invalidate();
+        }
+
+        private void SetHightlightIndex(int hiIdx) {
+            hilightIdx = matchIdx[hiIdx];
+            lblHilightIndex.Text = $"({hiIdx + 1}/{matchIdx.Count})";
+            lbxFunc.TopIndex = matchIdx[hiIdx];
+        }
+
+        private void btnSearch_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode != Keys.Enter)
+                return;
+
+            if (matchIdx.Count == 0)
+                return;
+
+            var matchIdxIdx = matchIdx.IndexOf(hilightIdx);
+            int hiIdx = (matchIdxIdx + 1) % matchIdx.Count;
+            SetHightlightIndex(hiIdx);
+            lbxFunc.Invalidate();
+        }
+
+        private void lbxFunc_DrawItem(object sender, DrawItemEventArgs e) {
+            var g = e.Graphics;
+
+            Brush textBrush;
+            if (e.State.HasFlag(DrawItemState.Selected)) {
+                e.DrawBackground();
+                textBrush = Brushes.White;
+            } else {
+                if (!matchIdx.Contains(e.Index)) {
+                    e.DrawBackground();
+                } else {
+                    if (e.Index == hilightIdx)
+                        g.FillRectangle(Brushes.Orange, e.Bounds);
+                    else
+                        g.FillRectangle(Brushes.Yellow, e.Bounds);
+                }
+                textBrush = new SolidBrush(e.ForeColor);
+            }
+            g.DrawString((lbxFunc.Items[e.Index] as MethodInfo).Name, e.Font, textBrush, e.Bounds, StringFormat.GenericDefault);
         }
     }
 }

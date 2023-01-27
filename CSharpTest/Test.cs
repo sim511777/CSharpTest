@@ -1020,25 +1020,40 @@ $@"    </table>
         }
 
         public static void ExpressionTreeTest(bool indent = true, bool useSimpleDictionaryFormat = true, EmitTypeInformation emitTypeInformation = EmitTypeInformation.Never) {
-            Func<int, int, int> func = (a, b) => a + b;
-            Expression<Func<int, int, int>> exp = (a, b) => a + b;
-            var compiled = exp.Compile();
-            Console.WriteLine($"{func(3, 4)}");
+            // 선언
+            Func<int, int, int> lambda = (a, b) => a + b;
+            Expression<Func<int, int, int>> exptree = (a, b) => a + b;
+            
+            // 실행
+            Console.WriteLine($"{lambda(3, 4)}");
+            var compiled = exptree.Compile();
             Console.WriteLine($"{compiled(3, 4)}");
+            
+            // 징렬화
+            Console.WriteLine($"== lambda");
+            string funcJson = JsonSerializerNewton.ObjectToJson(lambda, indent);
+            Console.WriteLine(funcJson);
+            File.WriteAllText("lambda.json", funcJson);
 
-            try {
-                string funcJson = JsonSerializerDataContract.ObjectToJson(func, indent, useSimpleDictionaryFormat, emitTypeInformation);
-                Console.WriteLine(funcJson);
-            } catch (Exception ex) {
-                Console.WriteLine(ex.ToString());
-            }
-            try {
-                string expJson = JsonSerializerDataContract.ObjectToJson(exp, indent, useSimpleDictionaryFormat, emitTypeInformation);
-                Console.WriteLine(expJson);
-            } catch (Exception ex) {
-                Console.WriteLine(ex.ToString());
-            }
+            Console.WriteLine($"== exptree");
+            string expJson = JsonSerializerNewton.ObjectToJson(exptree, indent);
+            Console.WriteLine(expJson);
+            File.WriteAllText("exptree.json", expJson);
         }
+
+        //public static void ExpressionTreeTest2() {
+        //    Console.WriteLine($"== lambda");
+        //    string funcJson = File.ReadAllText("lambda.json");
+        //    Console.WriteLine(funcJson);
+        //    JsonSerializerNewton.
+
+        //    Console.WriteLine($"== exptree");
+        //    string expJson = JsonSerializerNewton.ObjectToJson(exptree, indent);
+        //    Console.WriteLine(expJson);
+        //    File.WriteAllText("exptree.json", expJson);
+
+
+        //}
 
         public static void RectSerialize(bool indent = true, bool useSimpleDictionaryFormat = true, EmitTypeInformation emitTypeInformation = EmitTypeInformation.Never) {
             var rectList = new List<Rectangle> {
