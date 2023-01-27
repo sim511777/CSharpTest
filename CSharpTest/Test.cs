@@ -104,6 +104,38 @@ namespace CSharpTest {
             fAnim().Move();
         }
 
+        public static void CovarianceContravariance2() {
+            Bird bird = null;
+            Animal animal = bird;                       // 변수타입은 공변성
+
+            Bird[] birds = new Bird[10];
+            Animal[] animals = birds;                   // 배열 요소타입는 공변성
+            //Bird[] birds = new Animal[10];
+            
+            List<Bird> birdList = new List<Bird>();
+            //List<Animal> animalList = birdList;       // List<T> 요소타입는 공병선 안되지만
+            IEnumerable<Animal> animalEnums = birdList; // IEnumerable<T> 요소타입는 공변성 됨
+
+            Func<Animal, Animal> faa = null;
+            Func<Animal, Bird> fab = null;
+            Func<Animal, Duck> fad = null;
+            Func<Bird, Animal> fba = null;
+            Func<Bird, Bird> fbb = null;
+            Func<Bird, Duck> fbd = null;
+            Func<Duck, Animal> fda = null;
+            Func<Duck, Bird> fdb = null;
+            Func<Duck, Duck> fdd = null;
+            fbb = fbd;
+            fbb = fab;
+
+            void _test_(Func<Bird, Bird> func1) {
+                var bbbb = func1(new Bird(""));
+                bbbb.Fly();
+            }
+            _test_(fbd);
+            _test_(fab);
+        }
+
         public static void LambdaClosure() {
             int a = 1;
             int b = 2;
