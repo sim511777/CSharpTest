@@ -1049,6 +1049,34 @@ $@"    </table>
             vt.Item1 = 10;  // ValueTuple<>.Item1 is writable
         }
 
+        public static void ValueTupleTest2() {
+            (int, int) Divide(int a, int b) {
+                return (a / b, a % b);
+            }
+            (int qut, int rem) Divide2(int a, int b) {
+                return (a / b, a % b);
+            }
+
+            // unnamed valuetuple
+            var a = Divide(1, 2);
+            Console.WriteLine($"몫={a.Item1}, 나머지={a.Item2}");
+            var qut = a.Item1;
+            var rem = a.Item2;
+            Console.WriteLine($"몫={qut}, 나머지={rem}");
+
+            // deconstruction
+            var (qut2, rem2) = Divide(1, 2);
+            Console.WriteLine($"몫={qut2}, 나머지={rem2}");
+
+            // make named valuetuple
+            (int qut, int rem) b = Divide(1, 2);
+            Console.WriteLine($"몫={b.qut}, 나머지={b.rem}");
+
+            // method that returns named valuetuple
+            var c = Divide2(1, 2);
+            Console.WriteLine($"몫={c.qut}, 나머지={c.rem}");
+        }
+
         public static void TwoReturnFunctionTest() {
             (string, int) GetTwoItems() {
                 return ("One", 1);
