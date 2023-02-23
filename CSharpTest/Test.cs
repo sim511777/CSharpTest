@@ -20,6 +20,8 @@ using System.Drawing.Imaging;
 using System.Globalization;
 using System.Collections;
 using Microsoft.VisualBasic;
+using System.Xml.Linq;
+using System.Security.Cryptography;
 
 namespace CSharpTest {
     class Test {
@@ -990,6 +992,54 @@ $@"    </table>
             Console.WriteLine($"name9={name9}, num9={num9}");
         }
 
+        public static void ValueTuple_Unnamed() {
+            // 다변수 리턴 함수
+            // ValueTuple<T,...> 타입을 리턴함
+            // 각각의 변수는 Item1, Item2... 의 속성으로 접근 가능
+            // Tuple<T,...> 와 달리 Item1, Item2, ... 가readonly가 아님, write할수 있음
+            // Item1, Item2, ... 이름을 사용하지 않으려면 리턴한 변수를 reconstruction 하거나 호출과 동시에 reconstruction 가능
+            (int, int) Divide(int a, int b) {
+                int remainder;
+                var quotient = Math.DivRem(a, b, out remainder);
+                return (quotient, remainder);
+            }
+
+            var result1 = Divide(5, 3);     // ValueTuple 변수로 리턴
+            Console.WriteLine($"qutotient={result1.Item1}, remainder={result1.Item2}");
+            (int a, int b) = result1;       // ValueTuple 변수 Reconstruction
+            Console.WriteLine($"qutotient={a}, remainder={b}");
+            (int c, int d) = Divide(5, 3);  // 호출과 동시에 Reconstruction
+            Console.WriteLine($"qutotient={c}, remainder={d}");
+            (var e, var f) = Divide(5, 3);  // 타입 추측 var 사용 가능
+            Console.WriteLine($"qutotient={c}, remainder={d}");
+            (int quotient, int remainder) result2 = Divide(5, 3);  // named ValueTuple변수로 생성
+            Console.WriteLine($"qutotient={result2.quotient}, remainder={result2.remainder}");
+        }
+
+        public static void ValueTuple_Named() {
+            // named ValueTuple
+            (int quotient, int reminder) Divide(int a, int b) {
+                int remainder;
+                var quotient = Math.DivRem(a, b, out remainder);
+                return (quotient, remainder);
+            }
+
+            var result1 = Divide(5, 3);
+            // return 타입이 named ValueTuple임
+            Console.WriteLine($"qutotient={result1.quotient}, remainder={result1.reminder}");
+            // ValueTuple의 Item1, Item2 도 사용 가능
+            Console.WriteLine($"qutotient={result1.Item1}, remainder={result1.Item2}");
+        }
+
+        public static void TupleReconstruction() {
+            var t = Tuple.Create(10, 20);
+            // t.Item1 = 10; Tuple<>.Item1 is readonly
+            (int a, int b) = t;
+            Console.WriteLine($"a={a}, b={b}");
+            var vt = t.ToValueTuple();
+            vt.Item1 = 10;  // ValueTuple<>.Item1 is writable
+        }
+
         public static void TwoReturnFunctionTest() {
             (string, int) GetTwoItems() {
                 return ("One", 1);
@@ -998,6 +1048,12 @@ $@"    </table>
             var (name, num) = GetTwoItems();
 
             Console.WriteLine($"name={name}, num={num}");
+        }
+
+        void ArrayInitialze() {
+            string[] names = { "Inigo", "Montoya" };
+            var names2 = new string[] { "Inigo", "Montoya" };
+            var names3 = new[] { "Inigo", "Montoya" };
         }
 
         public static void FuncCombinationTest() {
