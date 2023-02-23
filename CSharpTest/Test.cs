@@ -1016,6 +1016,15 @@ $@"    </table>
             Console.WriteLine($"qutotient={result2.quotient}, remainder={result2.remainder}");
         }
 
+        public static void ValueTuple_Generation() {
+            var vt = ("Bibian", 0);                         // vlauetuple 생성
+            (string name, int age) vt2 = ("Bibian", 0);     // valuetuple로 부터 named valuetuple 생성
+            var vt3 = (name:"Bibian", age:0);               // named valuetuple로 부터 named valuetuple 생성
+            
+            (var name, var age) = ("Bibian", 0);            // valuetuple로 부터 deconstruction;
+            var (name2, age2) = ("Bibian", 0);              // valuetuple로 부터 deconstruction - var 한번만 선언;
+        }
+
         public static void ValueTuple_Named() {
             // named ValueTuple
             (int quotient, int reminder) Divide(int a, int b) {
