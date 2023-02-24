@@ -22,6 +22,7 @@ using System.Collections;
 using Microsoft.VisualBasic;
 using System.Xml.Linq;
 using System.Security.Cryptography;
+using System.Collections.ObjectModel;
 
 namespace CSharpTest {
     class Test {
@@ -1722,6 +1723,66 @@ $@"    </table>
         public static void EditMessageBoxTest() {
             var str = Interaction.InputBox("Your Message ", "Title", "Default Response");
             Console.WriteLine(str);
+        }
+
+        public static void LinqVsListTest() {
+            var enu = Enumerable.Range(0, 10);
+            var lis = enu.ToList();
+
+            List<int> lis2 = null;
+            IEnumerable<int> enu2 = null;
+            int i = 0;
+            bool b = false;
+
+            // 인덱스 조회
+            i = lis[0];
+            i = enu.ElementAt(0);
+            
+            // 갯수 조회
+            i = lis.Count;
+            i = enu.Count();
+            
+            // 범위 추가
+            lis.AddRange(lis);
+            enu2 = enu.Concat(enu);
+
+            // 아이템 여부 조회
+            b = lis.Contains(10);
+            b = enu.Contains(10);
+
+            // 조건 여부 조회
+            b = lis.Exists(i => i == 10);
+            b = enu.Any(i => i == 10);
+
+            // 변환
+            lis2 = lis.ConvertAll(i => i * 2);
+            enu2 = enu.Select(i => i * 2);
+
+            // 검색
+            i = lis.Find(i => i == 10);
+            i = enu.First(i => i == 10);
+            i = enu.FirstOrDefault(i => i == 10);
+
+            // 뒤부터 검색
+            i = lis.FindLast(i => i == 10);
+            i = enu.Last(i => i == 10);
+            i = enu.LastOrDefault(i => i == 10);
+
+            // 목록 검색
+            lis2 = lis.FindAll(i => i == 10);
+            enu2 = enu.Where(i => i == 10);
+
+            // 슬라이스
+            lis2 = lis.GetRange(2, 3);
+            enu2 = enu.Skip(2).Take(2);
+
+            // 뒤집기
+            lis.Reverse();
+            enu2 = enu2.Reverse();
+
+            // 정렬
+            lis.Sort();
+            enu2 = enu.OrderBy(i => i);
         }
     }
 }
