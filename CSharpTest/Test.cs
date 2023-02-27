@@ -1743,7 +1743,7 @@ $@"    </table>
             i = enu.Count();
             
             // 범위 추가
-            lis.AddRange(lis);
+            lis.AddRange(lis);      // 자체 동작
             enu2 = enu.Concat(enu);
 
             // 아이템 여부 조회
@@ -1777,11 +1777,11 @@ $@"    </table>
             enu2 = enu.Skip(2).Take(2);
 
             // 뒤집기
-            lis.Reverse();
+            lis.Reverse();  // 자체 동작
             enu2 = enu2.Reverse();
 
             // 정렬
-            lis.Sort();
+            lis.Sort();     // 자체 동작
             enu2 = enu.OrderBy(i => i);
         }
     }
