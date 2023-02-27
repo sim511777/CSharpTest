@@ -15,6 +15,7 @@ using System.Web.Script.Serialization;
 using Newtonsoft.Json;
 using System.Collections;
 using System.Runtime.CompilerServices;
+using System.Windows.Media.Media3D;
 
 namespace CSharpTest {
     class Glb {
@@ -38,8 +39,13 @@ namespace CSharpTest {
                 if (i >= j) return j;       // 겹치거나 바뀌었다면 겹치거나 작은 값 리턴
                 Console.Write("swap: " + new string(' ', lo * 4));
                 Console.WriteLine(string.Join("", A.Skip(lo).Take(hi - lo + 1).Select((n, idx) => idx + lo == i || idx + lo == j ? $"[{n,2}]" : $" {n,2} ")));
-                swap(ref A[i], ref A[j]);   // 스왑
+                //swap(ref A[i], ref A[j]);   // 스왑
+                (A[i], A[j]) = ReturnInput(A[j], A[i]);
             }
+        }
+
+        public static (T1, T2) ReturnInput<T1, T2>(T1 t1, T2 t2) {
+            return (t1, t2);
         }
 
         public static void swap(ref int a, ref int b) {
