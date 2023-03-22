@@ -23,6 +23,7 @@ using Microsoft.VisualBasic;
 using System.Xml.Linq;
 using System.Security.Cryptography;
 using System.Collections.ObjectModel;
+using DiffMatchPatch;
 
 namespace CSharpTest {
     class Test {
@@ -1783,6 +1784,27 @@ $@"    </table>
             // 정렬
             lis.Sort();     // 자체 동작
             enu2 = enu.OrderBy(i => i);
+        }
+
+        public static void DiffMatchPatch_Test(string text1 = "Hello World.", string text2 = "Goodbye World.") {
+            Console.WriteLine($"text1 : {text1}");
+            Console.WriteLine($"text2 : {text2}");
+
+            diff_match_patch dmp = new diff_match_patch();
+
+            Console.WriteLine($"diff_main :");
+            List<Diff> diff = dmp.diff_main(text1, text2);
+            // Result: [(-1, "Hell"), (1, "G"), (0, "o"), (1, "odbye"), (0, " World.")]
+            for (int i = 0; i < diff.Count; i++) {
+                Console.WriteLine($"diff[{i}] : {diff[i]}");
+            }
+
+            Console.WriteLine($"diff_cleanupSemantic :");
+            dmp.diff_cleanupSemantic(diff);
+            // Result: [(-1, "Hello"), (1, "Goodbye"), (0, " World.")]
+            for (int i = 0; i < diff.Count; i++) {
+                Console.WriteLine($"diff[{i}] : {diff[i]}");
+            }
         }
     }
 }
