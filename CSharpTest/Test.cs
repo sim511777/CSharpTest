@@ -994,6 +994,26 @@ $@"    </table>
             Console.WriteLine($"name9={name9}, num9={num9}");
         }
 
+        public static void ValueTuple_summary() {
+            var a = (3, 5);                     // unnamed value tuple
+            var b = (num0: 3, num1: 5);         // named value tuple
+            (int num0, int num1) t = (3, 5);    // unnamed value tuple => named value tuple (deconstrtion and reconstruction)
+            (var g, var h) = (3, 5);            // deconstructing assignment
+            var (c, d) = (3, 5);                // deconstructing assignment (same as above)
+            // 오른쪽은 무조건 튜플이고
+            // 왼쪽이 변수가 하나일 경우 튜플, 여러개로 나뉠경우 deconstruction
+
+            // unnamed value tuple를 리턴하는 함수
+            (int, int) GetUnnamed() {
+                return (7, 8);
+            }
+
+            // named value tuple를 리턴하는 함수
+            (int num0, int num1) GetNamed() {
+                return (7, 8);
+            }
+        }
+
         public static void ValueTuple_Unnamed() {
             // 다변수 리턴 함수
             // ValueTuple<T,...> 타입을 리턴함
@@ -1008,9 +1028,9 @@ $@"    </table>
 
             var result1 = Divide(5, 3);     // ValueTuple 변수로 리턴
             Console.WriteLine($"qutotient={result1.Item1}, remainder={result1.Item2}");
-            (int a, int b) = result1;       // ValueTuple 변수 Reconstruction
+            (int a, int b) = result1;       // ValueTuple 변수 Deconstruction
             Console.WriteLine($"qutotient={a}, remainder={b}");
-            (int c, int d) = Divide(5, 3);  // 호출과 동시에 Reconstruction
+            (int c, int d) = Divide(5, 3);  // 호출과 동시에 Deconstruction
             Console.WriteLine($"qutotient={c}, remainder={d}");
             (var e, var f) = Divide(5, 3);  // 타입 추측 var 사용 가능
             Console.WriteLine($"qutotient={c}, remainder={d}");
@@ -1042,7 +1062,7 @@ $@"    </table>
             Console.WriteLine($"qutotient={result1.Item1}, remainder={result1.Item2}");
         }
 
-        public static void TupleReconstruction() {
+        public static void TupleDeconstruction() {
             var t = Tuple.Create(10, 20);
             // t.Item1 = 10; Tuple<>.Item1 is readonly
             (int a, int b) = t;
@@ -1079,7 +1099,7 @@ $@"    </table>
             Console.WriteLine($"몫={c.qut}, 나머지={c.rem}");
         }
 
-        public static void TwoReturnFunctionTest() {
+        public static void ValueTuple_TwoReturnFunctionTest() {
             (string, int) GetTwoItems() {
                 return ("One", 1);
             }
