@@ -24,6 +24,7 @@ using System.Xml.Linq;
 using System.Security.Cryptography;
 using System.Collections.ObjectModel;
 using DiffMatchPatch;
+using ICSharpCode.TextEditor.Actions;
 
 namespace CSharpTest {
     class Test {
@@ -1825,6 +1826,12 @@ $@"    </table>
             for (int i = 0; i < diff.Count; i++) {
                 Console.WriteLine($"diff[{i}] : {diff[i]}");
             }
+        }
+
+        public static void GenLotto() {
+            var rnd = new Random();
+            var lottos = Enumerable.Range(1, 45).OrderBy(n => rnd.Next()).Take(6);
+            Console.WriteLine(string.Join(",", lottos));
         }
     }
 }
