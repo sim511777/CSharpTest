@@ -404,7 +404,7 @@ namespace CSharpTest {
             Console.WriteLine($"{"---------------",-15} : {"------------------------------",-30} : {"--------"}");
             foreach (var encoding in encodings) {
                 var bytes = encoding.GetBytes(input);
-                var encodedString = showAsBinary ? Glb.ToBinaryString(bytes) : Glb.ToHexString(bytes);
+                var encodedString = showAsBinary ? bytes.Select(b => Convert.ToString(b, 2).PadLeft(8, '0')).Aggregate((a, b) => $"{a}-{b}") : BitConverter.ToString(bytes);
                 var textDecode = encoding.GetString(bytes);
                 Console.WriteLine($"{encoding.BodyName,-15} : {encodedString,-30} : \"{textDecode}\"");
             }
