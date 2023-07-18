@@ -1833,5 +1833,27 @@ $@"    </table>
             var lottos = Enumerable.Range(1, 45).OrderBy(n => rnd.Next()).Take(6);
             Console.WriteLine(string.Join(",", lottos));
         }
+
+        public static void DoubleNormalizeTest(double _max = 5, double _min = 3) {
+            double Normalilze(double v, double max, double min = 0) {
+                double step = max - min;
+                double temp = (v - min) % step;
+                //if (temp < 0) temp += step;
+                double normalized = temp + min;
+                return normalized;
+            }
+            double Normalilze2(double v, double max, double min = 0) {
+                double step = max - min;
+                double temp = Math.IEEERemainder((v - min), step);
+                //if (temp < 0) temp += step;
+                double normalized = temp + min;
+                return normalized;
+            }
+
+            for (double x = -10; x <= 10; x += 0.1) {
+                //Console.WriteLine($"{x}, {Normalilze(x, _max, _min)}, {Normalilze2(x, _max, _min)}");
+                Console.WriteLine($"{x}, {x % 2}, {Math.IEEERemainder(x, 2)}");
+            }
+        }
     }
 }
