@@ -1855,5 +1855,39 @@ $@"    </table>
                 Console.WriteLine($"{x}, {x % 2}, {Math.IEEERemainder(x, 2)}");
             }
         }
+
+        public static void ParamOutTest() {
+            void OutTest(out string a) {
+                // Console.WriteLine($"{a}"); 불가 - 초기화가 안된 상태임
+                a = "out string";   // 빼먹으면 에러 - 반드시 함수 본문에서 초기화 해야 함.
+            }
+
+            string str2 = "str2 ori";
+            OutTest(out str2);
+            Console.WriteLine($"{str2}");
+        }
+
+        public static void ParamRefTest() {
+            // C++ : &(ref) 와 유사.
+            void RefTest(ref string a) {
+                a = "Ref string";
+            }
+
+            //string str1;  // 불가 - 호출전에 변수가 초기화 되어야 함
+            string str1 = "str1 ori";
+            RefTest(ref str1);
+            Console.WriteLine($"{str1}");
+        }
+
+        public static void ParamInTest() {
+            // C++ : const &(ref) 와 유사.
+            void InTest(in int a) {
+                //a = 10; 불가 - 수정이 불가함
+            }
+
+            //int d; // 불가 - 호출전에 변수가 초기화 되어야 함
+            int d = 0;
+            InTest(in d);
+        }
     }
 }
